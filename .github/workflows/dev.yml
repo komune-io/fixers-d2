@@ -1,0 +1,23 @@
+name: Gradle Build
+
+on: [push]
+
+jobs:
+  build-packages:
+    name: Dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source
+        uses: actions/checkout@v4
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+      - name: Build
+        run: ./gradlew build --parallel --scan
+      - name: Test
+        working-directory: ./sandbox
+        run: ./gradlew build test
