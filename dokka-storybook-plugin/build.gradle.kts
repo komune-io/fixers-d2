@@ -1,10 +1,11 @@
-import city.smartb.gradle.dependencies.FixersDependencies
+import io.komune.gradle.dependencies.FixersDependencies
 
 plugins {
     `kotlin-dsl`
     kotlin("jvm")
-    id("com.gradle.plugin-publish")
 }
+
+apply(from = rootProject.file("gradle/publishing_module.gradle"))
 
 
 dependencies {

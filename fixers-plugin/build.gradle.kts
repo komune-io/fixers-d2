@@ -16,20 +16,20 @@ dependencies {
 	implementation("org.jetbrains.dokka:dokka-gradle-plugin:${PluginVersions.dokka}")
 
 	implementation(project(":dokka-storybook-plugin"))
-	implementation("city.smartb.fixers.gradle:config:${PluginVersions.fixers}")
-	implementation("city.smartb.fixers.gradle:plugin:${PluginVersions.fixers}")
+	implementation("io.komune.fixers.gradle:config:${PluginVersions.fixers}")
+	implementation("io.komune.fixers.gradle:plugin:${PluginVersions.fixers}")
 }
 
 gradlePlugin {
-	website = "https://smartb.city"
-	vcsUrl = "https://github.com/smartbcity/d2"
+	website = "https://github.com/komune-io"
+	vcsUrl = "https://github.com/komune-io/d2"
 	plugins {
-		create("city.smartb.fixers.gradle.d2") {
-			id = "city.smartb.fixers.gradle.d2"
-			implementationClass = "city.smartb.d2.fixers.gradle.D2Plugin"
+		create("io.komune.fixers.gradle.d2") {
+			id = "io.komune.fixers.gradle.d2"
+			implementationClass = "io.komune.d2.fixers.gradle.D2Plugin"
 			displayName = "Fixers Gradle d2"
 			description = "Ease the configuration of d2 in order to generate documentation for storybook."
-			tags = listOf("SmartB", "Fixers", "kotlin", "dokka", "d2")
+			tags = listOf("Komune", "Fixers", "kotlin", "dokka", "d2")
 		}
 	}
 }

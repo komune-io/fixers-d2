@@ -3,19 +3,15 @@
  */
 
 // Configures publishing of Maven artifacts to Bintray
+
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 apply from: project.rootProject.file('gradle/pom.gradle')
 
-def sonatypeUsername = System.getenv("sonatypeUsername") ?: ""
-def sonatypePassword = System.getenv("sonatypePassword") ?: ""
 def signingKey = System.getenv("signingKey") ?: ""
 def signingPassword = System.getenv("signingPassword") ?: ""
-def releasesRepoUrl =  "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-def repoUrl = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
@@ -32,13 +28,12 @@ afterEvaluate { Project project ->
         publications {
             mavenJava(MavenPublication) {
                 from components.java
+                artifact sourcesJar
+                artifact javadocJar
                 pom.withXml(configureMavenCentralMetadata)
             }
             pluginMaven(MavenPublication) {
                 pom.withXml(configureMavenCentralMetadata)
-            }
-            'io.komune.fixers.gradle.d2PluginMarkerMaven'(MavenPublication) {
-                pom.withXml(configurePomMetadata)
             }
         }
         repositories {
@@ -55,6 +50,7 @@ afterEvaluate { Project project ->
         def key = signingKey
         def password = signingPassword
         useInMemoryPgpKeys(key, password)
+        sign publishing.publications.mavenJava
     }
 
 }
