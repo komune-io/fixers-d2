@@ -6,7 +6,7 @@ on: [push]
 #    branches: [ main ]
 
 jobs:
-  call-reusable-workflow:
+  Dev:
     uses: komune-io/fixers-gradle/.github/workflows/dev-workflow.yml@feat/HardforkToKomune
     permissions:
       contents: read
