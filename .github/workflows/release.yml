@@ -35,5 +35,6 @@ jobs:
           PKG_MAVEN_TOKEN: ${{ secrets.PKG_MAVEN_TOKEN }}
           VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
+          cat ~/.gradle/init.gradle.kts
           echo "Publishing version ${VERSION}"
           VERSION=${VERSION} make publish-libs
