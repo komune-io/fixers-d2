@@ -1,7 +1,7 @@
-package city.smartb.d2.fixers.gradle
+package io.komune.d2.fixers.gradle
 
-import city.smartb.fixers.gradle.config.ConfigPlugin
-import city.smartb.gradle.config.fixers
+import io.komune.fixers.gradle.config.ConfigPlugin
+import io.komune.gradle.config.fixers
 import getD2
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -24,7 +24,7 @@ class D2Plugin : Plugin<Project> {
 				register<org.jetbrains.dokka.gradle.DokkaTask>(DOKKA_STORYBOOK_PARTIAL) {
 					dependencies {
 						val currentVersion = D2Plugin::class.java.getPackage().implementationVersion
-						plugins("city.smartb.d2:dokka-storybook-plugin:${currentVersion}")
+						plugins("io.komune.d2:dokka-storybook-plugin:${currentVersion}")
 					}
 				}
 			}

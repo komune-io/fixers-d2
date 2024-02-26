@@ -1,5 +1,5 @@
-import city.smartb.gradle.dependencies.FixersPluginVersions
-import city.smartb.gradle.dependencies.FixersVersions
+import io.komune.gradle.dependencies.FixersPluginVersions
+import io.komune.gradle.dependencies.FixersVersions
 import org.gradle.kotlin.dsl.embeddedKotlinVersion
 
 object PluginVersions {

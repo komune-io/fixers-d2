@@ -1,4 +1,4 @@
-package city.smartb.d2.fixers.gradle
+package io.komune.d2.fixers.gradle
 
 import java.io.File
 
