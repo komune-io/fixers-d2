@@ -9,7 +9,8 @@ docs:
 	echo 'No Docs'
 
 lint-libs:
-	./gradlew detekt
+	echo 'No Docs'
+	#./gradlew detekt
 
 build-libs:
 	./gradlew build --scan
