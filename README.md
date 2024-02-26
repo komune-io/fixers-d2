@@ -1,10 +1,10 @@
 # D2
 
-D2 is a module for generating automatic documentation of the SmartB architecture.
+D2 is a module for generating automatic documentation of the Komune architecture.
 
 ## dokka-storybook-plugin
 
-Plugin [Dokka](https://github.com/Kotlin/dokka) compatible with Storybook and [G2-UI](https://gitlab.smartb.city/fixers/g2)
+Plugin [Dokka](https://github.com/Kotlin/dokka) compatible with Storybook and [G2-UI](https://github.com/komune-io/fixers-g2)
 
 ### Installation with gradle
 
@@ -28,7 +28,7 @@ Then, to use the dokka-storybook-plugin, create a new Dokka task and add it as a
 tasks {
     create<org.jetbrains.dokka.gradle.DokkaTask>("dokkaStorybook") {
         dependencies {
-            plugins("city.smartb.d2:dokka-storybook-plugin")
+            plugins("io.komune.d2:dokka-storybook-plugin")
         }
     }
 }
@@ -52,7 +52,7 @@ subprojects {
     tasks {
         register<org.jetbrains.dokka.gradle.DokkaTask>(dokkaStorybookPartial) {
             dependencies {
-                plugins("city.smartb.d2:dokka-storybook-plugin")
+                plugins("io.komune.d2:dokka-storybook-plugin")
             }
         }
     }
@@ -61,7 +61,7 @@ subprojects {
 tasks {
     register<org.jetbrains.dokka.gradle.DokkaCollectorTask>(dokkaStorybook) {
         dependencies {
-            plugins("city.smartb.d2:dokka-storybook-plugin")
+            plugins("io.komune.d2:dokka-storybook-plugin")
         }
         addChildTask(dokkaStorybookPartial)
         addSubprojectChildTasks(dokkaStorybookPartial)

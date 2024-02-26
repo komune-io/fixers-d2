@@ -1,4 +1,4 @@
-import city.smartb.gradle.dependencies.FixersDependencies
+import io.komune.gradle.dependencies.FixersDependencies
 
 plugins {
     kotlin("multiplatform")

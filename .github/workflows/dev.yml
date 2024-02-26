@@ -1,0 +1,19 @@
+name: Dev
+
+on: [push]
+#on:
+#  push:
+#    branches: [ main ]
+
+jobs:
+  Dev:
+    uses: komune-io/fixers-gradle/.github/workflows/dev-workflow.yml@b28fb9d73dae755be3dcfe5311070771904c9630
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+      GPG_SIGNING_PASSWORD: ${{ secrets.GPG_SIGNING_PASSWORD }}
+      PKG_MAVEN_USERNAME: ${{ secrets.PKG_MAVEN_USERNAME }}
+      PKG_MAVEN_TOKEN: ${{ secrets.PKG_MAVEN_TOKEN }}
+
