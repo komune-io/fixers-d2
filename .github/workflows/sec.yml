@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   Sec:
-    uses: komune-io/fixers-gradle/.github/workflows/sec-workflow.yml@b28fb9d73dae755be3dcfe5311070771904c9630
+    uses: komune-io/fixers-gradle/.github/workflows/sec-workflow.yml@main
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       PKG_MAVEN_USERNAME: ${{ secrets.PKG_MAVEN_USERNAME }}
