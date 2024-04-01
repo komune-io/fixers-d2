@@ -7,6 +7,11 @@ plugins {
 
 apply(from = rootProject.file("gradle/publishing_module.gradle"))
 
+project.plugins.withId("java-gradle-plugin") { // only do it if it's actually applied
+    project.configure<GradlePluginDevelopmentExtension> {
+        isAutomatedPublishing = false
+    }
+}
 
 dependencies {
     FixersDependencies.Jvm.Kotlin.coroutines(::implementation)
@@ -19,3 +24,4 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.dokka:dokka-test-api:${PluginVersions.dokka}")
 }
+
