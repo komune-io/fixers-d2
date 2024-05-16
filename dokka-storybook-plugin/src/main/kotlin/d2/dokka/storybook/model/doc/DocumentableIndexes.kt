@@ -84,13 +84,14 @@ data class DocumentableIndexes(
             val orphanDocumentables = this.filter { documentable ->
                 documentable.dri !in childToParentMap
                         && documentable !is PageDocumentable
+                        && !documentable.isOfType(D2Type.HIDDEN)
             }
             if (orphanDocumentables.isNotEmpty()) {
                 throw IllegalArgumentException(
                     "Found ${orphanDocumentables.size} orphan documentables. " +
                             "These documentables must be assigned to a @d2 page in order to be displayed " +
-                            "(or to a parent that has a page in its ancestors): " +
-                            orphanDocumentables.joinToString("\n") { "- ${it.dri}" }
+                            "(or to a parent that has a page in its ancestors):\n" +
+                            orphanDocumentables.joinToString("\n") { "- ${it.dri.toString().substringBefore("///")}" }
                 )
             }
         }
