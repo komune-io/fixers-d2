@@ -37,6 +37,7 @@ class D2TagFilterTransformer: DocumentableTransformer {
         )
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun Documentable.isTaggedWithD2(): Boolean {
         return (this as? WithExtraProperties<Documentable>)
             ?.extra

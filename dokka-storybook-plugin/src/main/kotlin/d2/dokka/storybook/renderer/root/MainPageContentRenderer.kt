@@ -9,6 +9,7 @@ import d2.dokka.storybook.model.code.react.g2.SegmentedContainerComponent
 import d2.dokka.storybook.model.code.react.storybook.MetaComponent
 import d2.dokka.storybook.model.doc.utils.title
 import d2.dokka.storybook.model.page.FileData
+import d2.dokka.storybook.model.page.documentable
 import d2.dokka.storybook.model.render.D2ContentKind
 import d2.dokka.storybook.renderer.MarkdownRenderer
 import d2.dokka.storybook.renderer.builder.ReactFileBuilder
@@ -73,6 +74,7 @@ open class MainPageContentRenderer(
         append(element.toSourceComponent(node, pageContext))
     }
 
+    @Suppress("UNCHECKED_CAST")
     open fun ReactFileBuilder.buildTwoColumnsSources(node: ContentGroup, pageContext: ContentPage) {
         val (leftElement, rightElement) = node.children as List<ContentGroup>
 
@@ -136,8 +138,8 @@ open class MainPageContentRenderer(
     }
 
     open fun buildImport(target: DRI, fileData: FileData, path: String): CodeImport {
-        val nodeId = target.sureClassNames.capitalize()
-        val elementId = fileData.id.capitalize()
+        val nodeId = target.sureClassNames.replaceFirstChar { it.uppercaseChar() }
+        val elementId = fileData.id.replaceFirstChar { it.uppercaseChar() }
         val elementName = "$nodeId$elementId"
         return CodeImport(
             path = path,
@@ -149,7 +151,7 @@ open class MainPageContentRenderer(
     open fun ReactFileBuilder.buildFileHeader(pageContext: ContentPage) {
         if (!isRoot) return
 
-        val name = pageContext.documentable!!.title()
+        val name = pageContext.documentable()!!.title()
         append(MetaComponent(name))
     }
 }

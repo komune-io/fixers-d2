@@ -10,6 +10,7 @@ import d2.dokka.storybook.model.doc.tag.Order
 import d2.dokka.storybook.model.doc.tag.Title
 import d2.dokka.storybook.model.doc.tag.Visual
 import d2.dokka.storybook.model.doc.tag.VisualType
+import org.jetbrains.dokka.DokkaConfiguration.DokkaSourceSet
 import org.jetbrains.dokka.links.DRI
 import org.jetbrains.dokka.links.sureClassNames
 import org.jetbrains.dokka.model.Annotations
@@ -26,6 +27,7 @@ import org.jetbrains.dokka.model.properties.PropertyContainer
 import org.jetbrains.dokka.model.properties.WithExtraProperties
 import kotlin.reflect.KClass
 
+@Suppress("UNCHECKED_CAST")
 fun Documentable.toPageDocumentable() = PageDocumentable(
 	name = name.orEmpty(),
 	dri = dri.copy(classNames = dri.sureClassNames),
@@ -36,6 +38,7 @@ fun Documentable.toPageDocumentable() = PageDocumentable(
 	extra = (this as? WithExtraProperties<Documentable>)?.extra ?: PropertyContainer.empty()
 )
 
+@Suppress("UNCHECKED_CAST")
 fun Documentable.toSectionDocumentable() = SectionDocumentable(
 	name = name.orEmpty(),
 	dri = dri.copy(classNames = dri.sureClassNames),
@@ -76,6 +79,7 @@ fun Documentable.isOfType(vararg types: D2Type): Boolean {
 	return d2DocTagExtra().firstTagOfTypeOrNull<D2>()?.type in types
 }
 
+@Suppress("UNCHECKED_CAST")
 fun Documentable.d2DocTagExtra() = (this as? WithExtraProperties<Documentable>)
 	?.extra?.get(D2DocTagExtra)
 	?: D2DocTagExtra(emptyList())
@@ -98,6 +102,7 @@ private fun Documentable.defaultVisualType() = when (this) {
 	else -> VisualType.NONE
 }
 
+@Suppress("UNCHECKED_CAST")
 fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = (this as? WithExtraProperties<Documentable>)
 	?.extra
 	?.get(Annotations)
