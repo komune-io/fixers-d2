@@ -4,6 +4,7 @@ package sample
  * The state of a... well... huh never mind.
  * @d2 model
  * @visual automate sample/src/main/resources/activity.json
+ * @parent [BoringPage]
  */
 enum class BoringState {
     /** Not doing anything. */

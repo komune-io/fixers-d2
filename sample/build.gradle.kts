@@ -1,4 +1,5 @@
 import io.komune.gradle.dependencies.FixersDependencies
+import io.komune.gradle.dependencies.FixersPluginVersions
 
 plugins {
     kotlin("jvm")
@@ -7,7 +8,7 @@ plugins {
 
 dependencies {
     FixersDependencies.Jvm.Kotlin.coroutines(::implementation)
-    implementation("io.komune.f2:f2-dsl-cqrs:0.8.0")
-    implementation("io.komune.f2:f2-dsl-function:0.8.0")
-    implementation("io.komune.f2:f2-spring-boot-starter-function-http:0.8.0")
+    implementation("io.komune.f2:f2-dsl-cqrs:${FixersPluginVersions.fixers}")
+    implementation("io.komune.f2:f2-dsl-function:${FixersPluginVersions.fixers}")
+    implementation("io.komune.f2:f2-spring-boot-starter-function-http:${FixersPluginVersions.fixers}")
 }

@@ -4,7 +4,7 @@ package other
  * This thing is so dull that no one knows how it could have ever been created
  *
  * @author me
- * @D2 model
+ * @d2 model
  */
 interface Blblbl {
     /**
@@ -25,3 +25,9 @@ interface Blblbl {
      */
     val things: List<String?>
 }
+
+/**
+ * @d2 page
+ * @child [Blblbl]
+ */
+interface BlblblPage

@@ -4,9 +4,10 @@ import f2.dsl.fnc.F2Consumer
 import f2.dsl.fnc.F2Supplier
 import f2.dsl.fnc.f2Consumer
 import f2.dsl.fnc.f2Function
-import f2.dsl.fnc.f2SupplierSingle
-import javax.annotation.security.PermitAll
-import javax.annotation.security.RolesAllowed
+import f2.dsl.fnc.f2Supplier
+import jakarta.annotation.security.PermitAll
+import jakarta.annotation.security.RolesAllowed
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Does some boring stuff
@@ -44,7 +45,7 @@ class BoringApi {
     /**
      * Supplies a useless not-ever-changing indicator
      */
-    fun supply(): F2Supplier<Boolean> = f2SupplierSingle { true }
+    fun supply(): F2Supplier<Boolean> = f2Supplier { flowOf(true) }
 
     /**
      * Annoying function
