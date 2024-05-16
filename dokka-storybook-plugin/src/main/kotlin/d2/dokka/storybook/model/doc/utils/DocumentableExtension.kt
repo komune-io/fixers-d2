@@ -16,8 +16,15 @@ import org.jetbrains.dokka.model.Annotations
 import org.jetbrains.dokka.model.DClasslike
 import org.jetbrains.dokka.model.DEnum
 import org.jetbrains.dokka.model.Documentable
+import org.jetbrains.dokka.model.SourceSetDependent
+import org.jetbrains.dokka.model.doc.CustomTagWrapper
+import org.jetbrains.dokka.model.doc.Description
+import org.jetbrains.dokka.model.doc.NamedTagWrapper
+import org.jetbrains.dokka.model.doc.TagWrapper
+import org.jetbrains.dokka.model.orEmpty
 import org.jetbrains.dokka.model.properties.PropertyContainer
 import org.jetbrains.dokka.model.properties.WithExtraProperties
+import kotlin.reflect.KClass
 
 fun Documentable.toPageDocumentable() = PageDocumentable(
 	name = name.orEmpty(),
@@ -98,3 +105,36 @@ fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = (this as?
 	.orEmpty()
 	.flatMap { it.value }
 	.firstOrNull { annotation -> annotation.dri == dri }
+
+
+/* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20 ----- */
+
+typealias GroupedTags = Map<KClass<out TagWrapper>, List<Pair<DokkaSourceSet?, TagWrapper>>>
+
+val List<Documentable>.sourceSets: Set<DokkaSourceSet>
+	get() = flatMap { it.sourceSets }.toSet()
+
+val List<Documentable>.dri: Set<DRI>
+	get() = map { it.dri }.toSet()
+
+val Documentable.groupedTags: GroupedTags
+	get() = documentation.flatMap { (pd, doc) ->
+		doc.children.map { pd to it }.toList()
+	}.groupBy { it.second::class }
+
+val Documentable.descriptions: SourceSetDependent<Description>
+	get() = groupedTags.withTypeUnnamed()
+
+val Documentable.customTags: Map<String, SourceSetDependent<CustomTagWrapper>>
+	get() = groupedTags.withTypeNamed()
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : TagWrapper> GroupedTags.withTypeUnnamed(): SourceSetDependent<T> =
+	(this[T::class] as List<Pair<DokkaSourceSet, T>>?)?.toMap().orEmpty()
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : NamedTagWrapper> GroupedTags.withTypeNamed(): Map<String, SourceSetDependent<T>> =
+	(this[T::class] as List<Pair<DokkaSourceSet, T>>?)
+		?.groupByTo(linkedMapOf()) { it.second.name }
+		?.mapValues { (_, v) -> v.toMap() }
+		.orEmpty()

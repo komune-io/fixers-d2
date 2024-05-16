@@ -13,27 +13,27 @@ import d2.dokka.storybook.translator.description.ServiceDescriptionPageContentBu
 import d2.dokka.storybook.translator.root.MainPageContentBuilder
 import d2.dokka.storybook.translator.root.RootPageContentBuilder
 import d2.dokka.storybook.translator.visual.VisualPageContentBuilder
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.base.signatures.SignatureProvider
 import org.jetbrains.dokka.base.transformers.pages.comments.CommentsToContentConverter
-import org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator
+import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
 import org.jetbrains.dokka.links.DRI
 import org.jetbrains.dokka.model.DModule
 import org.jetbrains.dokka.model.Documentable
-import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.ModulePageNode
 import org.jetbrains.dokka.utilities.DokkaLogger
 
 class D2StorybookPageCreator(
-    configuration: DokkaBaseConfiguration?,
     commentsToContentConverter: CommentsToContentConverter,
     signatureProvider: SignatureProvider,
     logger: DokkaLogger
-): DefaultPageCreator(configuration, commentsToContentConverter, signatureProvider, logger) {
-
+) {
     private lateinit var documentableIndexes: DocumentableIndexes
 
-    override fun pageForModule(m: DModule): ModulePageNode {
+    val contentBuilder: PageContentBuilder = PageContentBuilder(
+        commentsToContentConverter, signatureProvider, logger
+    )
+
+    fun pageForModule(m: DModule): ModulePageNode {
         val documentables = m.packages.flatMap { pack -> pack.classlikes + pack.typealiases }
             .map(Documentable::asD2TypeDocumentable)
 
@@ -47,7 +47,7 @@ class D2StorybookPageCreator(
 
         return ModulePageNode(
             name = m.name.ifEmpty { "<root>" },
-            content = contentForModule(m),
+            content = contentBuilder.contentFor(m),
             documentables = listOf(m),
             children = pages
         )
@@ -87,22 +87,10 @@ class D2StorybookPageCreator(
         else -> InnerModelDescriptionPageContentBuilder()
     }
 
-    private inner class InnerMainPageContentBuilder:
-        MainPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerModelDescriptionPageContentBuilder:
-        ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes) {
-        override fun contentForComments(d: Documentable): List<ContentNode>
-            = this@D2StorybookPageCreator.contentForComments(d)
-        override fun contentForDescription(d: Documentable): List<ContentNode>
-            = this@D2StorybookPageCreator.contentForDescription(d)
-    }
+    private inner class InnerMainPageContentBuilder: MainPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerModelDescriptionPageContentBuilder: ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
     private inner class InnerServiceDescriptionPageContentBuilder(display: FunctionDisplayType):
-        ServiceDescriptionPageContentBuilder(display, contentBuilder, documentableIndexes) {
-        override fun contentForComments(d: Documentable): List<ContentNode>
-            = this@D2StorybookPageCreator.contentForComments(d)
-        override fun contentForDescription(d: Documentable): List<ContentNode>
-            = this@D2StorybookPageCreator.contentForDescription(d)
-    }
+        ServiceDescriptionPageContentBuilder(display, contentBuilder, documentableIndexes)
     private inner class InnerVisualPageContentBuilder: VisualPageContentBuilder(contentBuilder, documentableIndexes)
     private inner class InnerRootPageContentBuilder: RootPageContentBuilder(contentBuilder)
 }

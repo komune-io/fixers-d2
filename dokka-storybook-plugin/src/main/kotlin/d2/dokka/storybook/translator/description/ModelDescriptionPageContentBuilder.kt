@@ -25,7 +25,7 @@ import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.TextStyle
 
 internal abstract class ModelDescriptionPageContentBuilder(
-    private val contentBuilder: PageContentBuilder,
+    override val contentBuilder: PageContentBuilder,
     override val documentableIndexes: DocumentableIndexes
 ): DescriptionPageContentBuilder() {
 
@@ -90,7 +90,6 @@ internal abstract class ModelDescriptionPageContentBuilder(
             }
 
             group {
-                +contentForComments(c)
                 propertiesBlock(c.properties)
             }
         }

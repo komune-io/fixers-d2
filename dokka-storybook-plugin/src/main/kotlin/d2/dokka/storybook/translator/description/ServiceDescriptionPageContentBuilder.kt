@@ -31,7 +31,7 @@ import org.jetbrains.dokka.pages.TextStyle
 
 internal abstract class ServiceDescriptionPageContentBuilder(
     private val displayType: FunctionDisplayType,
-    private val contentBuilder: PageContentBuilder,
+    override val contentBuilder: PageContentBuilder,
     override val documentableIndexes: DocumentableIndexes
 ): DescriptionPageContentBuilder() {
 
@@ -62,7 +62,7 @@ internal abstract class ServiceDescriptionPageContentBuilder(
                 header(c.headerLevel(), title)
             }
             group(styles = setOf(ContentStyle.TabbedContent)) {
-                +contentForComments(c)
+                +contentForDescription(c)
                 when (displayType) {
                     FunctionDisplayType.HTTP -> httpFunctionsBlock(functions)
                     FunctionDisplayType.KOTLIN -> kotlinFunctionsBlock(functions)
