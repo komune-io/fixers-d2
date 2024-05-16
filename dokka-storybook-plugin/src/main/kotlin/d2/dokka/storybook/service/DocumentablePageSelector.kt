@@ -1,7 +1,6 @@
 package d2.dokka.storybook.service
 
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.D2Type
 import d2.dokka.storybook.model.doc.utils.d2Type
@@ -19,7 +18,6 @@ object DocumentablePageSelector {
         }
 
         return when (d) {
-            is RootDocumentable -> filesFor(d)
             is PageDocumentable -> filesFor(d)
             is SectionDocumentable -> filesFor(d)
             is DClasslike -> filesFor(d)
@@ -27,13 +25,6 @@ object DocumentablePageSelector {
             else -> emptyList()
         }
     }
-
-    fun filesFor(d: RootDocumentable) = listOfNotNull(
-        FileData.ROOT,
-        FileData.MAIN,
-        FileData.DESCRIPTION.takeIf { d.hasDescription },
-        d.visualType().fileData
-    )
 
     fun filesFor(d: PageDocumentable) = listOfNotNull(
         FileData.ROOT,

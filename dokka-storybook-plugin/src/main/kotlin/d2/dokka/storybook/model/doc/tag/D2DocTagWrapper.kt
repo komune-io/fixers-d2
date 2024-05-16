@@ -42,24 +42,24 @@ fun CustomTagWrapper.toD2DocTagWrapper(): D2DocTagWrapper? {
         "child" -> ::Child
         "d2" -> ::D2
         "default" -> ::Default
-        "example" -> onExample()
+        "example" -> toExampleTagWrapper()
         "order" -> ::Order
-        "page" -> ::Page
+        "page" -> throw IllegalArgumentException("`@page` tag has been removed. Use a `@d2 page` instead.")
         "parent" -> ::Parent
         "ref" -> ::Ref
         "title" -> ::Title
-        "visual" -> onVisual()
+        "visual" -> toVisualTagWrapper()
         else -> null
     }?.invoke(root)
 }
 
-private fun CustomTagWrapper.onVisual() = when {
+private fun CustomTagWrapper.toVisualTagWrapper() = when {
     root.hasDocumentationLink() -> ::VisualLink
     root.hasContentAfterFirstParameter() -> ::VisualText
     else -> ::VisualSimple
 }
 
-private fun CustomTagWrapper.onExample() = when {
+private fun CustomTagWrapper.toExampleTagWrapper() = when {
     root.hasDocumentationLink() -> ::ExampleLink
     else -> ::ExampleText
 }

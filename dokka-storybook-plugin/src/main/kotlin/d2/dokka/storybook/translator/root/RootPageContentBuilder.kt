@@ -1,7 +1,6 @@
 package d2.dokka.storybook.translator.root
 
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.render.D2ContentKind
 import d2.dokka.storybook.translator.D2StorybookPageContentBuilder
 import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
@@ -14,7 +13,6 @@ internal abstract class RootPageContentBuilder(
 
     override fun contentFor(d: Documentable): ContentNode? {
         return when (d) {
-            is RootDocumentable,
             is PageDocumentable -> contentForRoot(d)
             else -> null
         }

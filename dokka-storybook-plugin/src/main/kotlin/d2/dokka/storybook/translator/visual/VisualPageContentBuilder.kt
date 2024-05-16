@@ -2,7 +2,6 @@ package d2.dokka.storybook.translator.visual
 
 import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.Example
 import d2.dokka.storybook.model.doc.tag.ExampleLink
@@ -49,7 +48,6 @@ abstract class VisualPageContentBuilder(
 
 	private fun contentFor(d: Documentable, visualType: VisualType?): ContentNode? {
 		return when (d) {
-			is RootDocumentable -> rawContentFor(d)
 			is PageDocumentable -> rawContentFor(d)
 			is SectionDocumentable -> rawContentFor(d)
 			is DEnum -> contentFor(d, visualType)
@@ -85,11 +83,6 @@ abstract class VisualPageContentBuilder(
 		} else {
 			rawContentForVisualTag(e, visualTag)
 		}
-	}
-
-	private fun rawContentFor(r: RootDocumentable): ContentNode {
-		val visualTag = r.pageDocumentation!!.visual!!
-		return rawContentForVisualTag(r, visualTag)
 	}
 
 	private fun rawContentFor(d: Documentable): ContentNode? {

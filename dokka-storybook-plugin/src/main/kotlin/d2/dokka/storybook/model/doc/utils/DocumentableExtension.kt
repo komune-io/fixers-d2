@@ -2,7 +2,6 @@ package d2.dokka.storybook.model.doc.utils
 
 import d2.dokka.storybook.model.doc.D2DocTagExtra
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.D2
 import d2.dokka.storybook.model.doc.tag.D2DocTagWrapper
@@ -19,18 +18,6 @@ import org.jetbrains.dokka.model.DEnum
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.model.properties.PropertyContainer
 import org.jetbrains.dokka.model.properties.WithExtraProperties
-
-private const val ROOT_SUFFIX = "Root"
-
-fun Documentable.toRootDocumentable() = RootDocumentable(
-	name = "${name.orEmpty()}$ROOT_SUFFIX",
-	dri = dri.copy(classNames = "${dri.sureClassNames}$ROOT_SUFFIX"),
-	documentation = documentation,
-	sourceSets = sourceSets,
-	expectPresentInSet = expectPresentInSet,
-	children = listOf(this),
-	extra = (this as? WithExtraProperties<Documentable>)?.extra ?: PropertyContainer.empty()
-)
 
 fun Documentable.toPageDocumentable() = PageDocumentable(
 	name = name.orEmpty(),
@@ -54,12 +41,8 @@ fun Documentable.toSectionDocumentable() = SectionDocumentable(
 
 fun Documentable.d2Type() = d2DocTagExtra().firstTagOfTypeOrNull<D2>()?.type
 fun Documentable.weight() = d2DocTagExtra().firstTagOfTypeOrNull<Order>()?.weight
-fun Documentable.title(): String = if (this is RootDocumentable) {
-	pageDocumentation?.title?.body ?: children.first().title()
-} else {
-	d2DocTagExtra().firstTagOfTypeOrNull<Title>()?.body
-		?: generateTitle()
-}.trim()
+fun Documentable.title(): String = d2DocTagExtra().firstTagOfTypeOrNull<Title>()?.body
+	?: generateTitle()
 
 private fun Documentable.generateTitle() = when (d2Type()) {
 	D2Type.COMMAND -> "Command"
@@ -97,11 +80,10 @@ fun Documentable.visualType() = when (d2Type()) {
 	else -> modelVisualType()
 }
 
-private fun Documentable.modelVisualType() = if (this is RootDocumentable) {
-	pageDocumentation?.visual?.type ?: VisualType.NONE
-} else {
-	d2DocTagExtra().firstTagOfTypeOrNull<Visual>()?.type ?: defaultVisualType()
-}
+private fun Documentable.modelVisualType() = d2DocTagExtra()
+	.firstTagOfTypeOrNull<Visual>()
+	?.type
+	?: defaultVisualType()
 
 private fun Documentable.defaultVisualType() = when (this) {
 	is DEnum -> VisualType.NONE

@@ -2,7 +2,6 @@ package d2.dokka.storybook.translator.description
 
 import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.D2Type
 import d2.dokka.storybook.model.doc.tag.Default
@@ -32,22 +31,12 @@ internal abstract class ModelDescriptionPageContentBuilder(
 
     override fun contentFor(d: Documentable): ContentNode? {
         return when (d) {
-            is RootDocumentable -> contentFor(d)
             is PageDocumentable -> contentFor(d)
             is SectionDocumentable -> contentFor(d)
             is DEnum -> contentFor(d)
             is DClasslike -> contentFor(d)
             is DTypeAlias -> contentFor(d)
             else -> null
-        }
-    }
-
-    private fun contentFor(r: RootDocumentable): ContentNode {
-        return contentBuilder.contentFor(r)  {
-            group(kind = ContentKind.Cover) {
-                buildTitle(r)
-                comment(r.pageDocumentation!!.description!!.root)
-            }
         }
     }
 

@@ -1,7 +1,6 @@
 package d2.dokka.storybook.translator.description
 
 import d2.dokka.storybook.model.doc.DocumentableIndexes
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.tag.D2Type
 import d2.dokka.storybook.model.doc.utils.isOfType
 import d2.dokka.storybook.model.doc.utils.title
@@ -24,9 +23,7 @@ abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
         val parent = documentableIndexes.childToParentMap[dri]?.let(documentableIndexes.documentables::get)
             ?: return 1
 
-        val increaseCount = (parent is RootDocumentable && parent.pageDocumentation != null) ||
-                parent.isOfType(D2Type.FUNCTION, D2Type.SECTION, D2Type.PAGE)
-        val headerInc = if (increaseCount) 1 else 0
+        val headerInc = if (parent.isOfType(D2Type.FUNCTION, D2Type.SECTION, D2Type.PAGE)) 1 else 0
 
         return parent.headerLevel() + headerInc
     }
