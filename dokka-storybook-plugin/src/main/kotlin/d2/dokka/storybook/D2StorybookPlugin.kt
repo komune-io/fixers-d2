@@ -10,6 +10,8 @@ import org.jetbrains.dokka.CoreExtensions
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.gfm.GfmPlugin
 import org.jetbrains.dokka.plugability.DokkaPlugin
+import org.jetbrains.dokka.plugability.DokkaPluginApiPreview
+import org.jetbrains.dokka.plugability.PluginApiPreviewAcknowledgement
 import org.jetbrains.dokka.transformers.pages.PageTransformer
 
 class D2StorybookPlugin : DokkaPlugin() {
@@ -51,4 +53,7 @@ class D2StorybookPlugin : DokkaPlugin() {
 				::D2StorybookDocumentableToPageTranslator override
 				dokkaBase.documentableToPageTranslator
 	}
+
+	@OptIn(DokkaPluginApiPreview::class)
+	override fun pluginApiPreviewAcknowledgement() = PluginApiPreviewAcknowledgement
 }
