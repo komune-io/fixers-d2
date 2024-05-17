@@ -3,7 +3,6 @@ package d2.dokka.storybook.service
 import d2.dokka.storybook.model.doc.PageDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.D2Type
-import d2.dokka.storybook.model.doc.utils.d2Type
 import d2.dokka.storybook.model.doc.utils.isOfType
 import d2.dokka.storybook.model.doc.utils.visualType
 import d2.dokka.storybook.model.page.FileData
@@ -39,23 +38,11 @@ object DocumentablePageSelector {
         d.visualType().fileData
     )
 
-    fun filesFor(d: DClasslike) = when (d.d2Type()) {
-        D2Type.API -> listOfNotNull(
-            FileData.MAIN,
-            FileData.DESCRIPTION,
-            d.visualType().fileData
-        )
-        D2Type.SERVICE -> listOfNotNull(
-            FileData.MAIN,
-            FileData.DESCRIPTION,
-            d.visualType().fileData
-        )
-        else -> listOfNotNull(
-            FileData.MAIN,
-            FileData.DESCRIPTION,
-            d.visualType().fileData
-        )
-    }
+    fun filesFor(d: DClasslike) =  listOfNotNull(
+        FileData.MAIN,
+        FileData.DESCRIPTION,
+        d.visualType().fileData
+    )
 
     fun filesFor(d: DTypeAlias) = listOfNotNull(
         FileData.MAIN,
