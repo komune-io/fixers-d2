@@ -20,6 +20,15 @@ dependencies {
 	implementation("io.komune.fixers.gradle:plugin:${PluginVersions.fixers}")
 }
 
+tasks.withType<Jar> {
+	manifest {
+		attributes(
+			"Implementation-Title" to project.name,
+			"Implementation-Version" to project.version
+		)
+	}
+}
+
 gradlePlugin {
 	website = "https://github.com/komune-io"
 	vcsUrl = "https://github.com/komune-io/d2"
