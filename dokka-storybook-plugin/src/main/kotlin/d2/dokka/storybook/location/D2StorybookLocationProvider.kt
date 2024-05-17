@@ -96,7 +96,7 @@ class D2StorybookLocationProvider(
 
         val pathBuilder = StringBuilder()
         if (targetRoot !== contextRoot) {
-            pathBuilder.append("/docs/${targetRoot.sanitizedTitle}--page")
+            pathBuilder.append("/docs/${targetRoot.sanitizedTitle}--docs")
         }
         pathBuilder.append("#${targetDocumentable.sanitizedTitle}")
 

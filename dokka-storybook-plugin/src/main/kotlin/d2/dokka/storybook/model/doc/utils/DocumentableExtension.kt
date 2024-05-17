@@ -62,6 +62,7 @@ private fun Documentable.generateTitle() = when (d2Type()) {
 	D2Type.FUNCTION -> name!!.split(Regex("(?=[A-Z])"))
 		.joinToString(" ")
 		.substringBeforeLast("Function")
+		.trim()
 	else -> name!!
 }
 
