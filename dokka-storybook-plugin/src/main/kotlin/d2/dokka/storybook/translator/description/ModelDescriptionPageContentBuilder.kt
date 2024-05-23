@@ -20,6 +20,7 @@ import org.jetbrains.dokka.model.DProperty
 import org.jetbrains.dokka.model.DTypeAlias
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.model.TypeAliased
+import org.jetbrains.dokka.model.doc.DocTag
 import org.jetbrains.dokka.pages.ContentGroup
 import org.jetbrains.dokka.pages.ContentKind
 import org.jetbrains.dokka.pages.ContentNode
@@ -74,21 +75,7 @@ internal abstract class ModelDescriptionPageContentBuilder(
                         text(": ")
                         entry.documentation.forEach { (_, docNode) ->
                             docNode.children.firstOrNull()?.root?.let {
-                                val descriptionNode = contentBuilder.commentsConverter.buildContent(
-                                    it,
-                                    DCI(mainDRI, ContentKind.Comment),
-                                    mainSourcesetData
-                                ).firstOrNull()
-
-                                if (descriptionNode != null) {
-                                    group(kind = ContentKind.Comment) {
-                                        if (descriptionNode is ContentGroup) {
-                                            +descriptionNode.copy(style = descriptionNode.style - TextStyle.Paragraph)
-                                        } else {
-                                            +descriptionNode
-                                        }
-                                    }
-                                }
+                               commentInLine(it)
                             }
                         }
                     }
@@ -186,6 +173,24 @@ internal abstract class ModelDescriptionPageContentBuilder(
         if (d.title() != d.name && !d.isOfType(D2Type.FUNCTION)) {
             text("Type: ")
             text(d.name!!, styles = setOf(D2TextStyle.Code))
+        }
+    }
+
+    private fun PageContentBuilder.DocumentableContentBuilder.commentInLine(docTag: DocTag) {
+        val descriptionNode = contentBuilder.commentsConverter.buildContent(
+            docTag,
+            DCI(mainDRI, ContentKind.Comment),
+            mainSourcesetData
+        ).firstOrNull()
+
+        if (descriptionNode != null) {
+            group(kind = ContentKind.Comment) {
+                if (descriptionNode is ContentGroup) {
+                    +descriptionNode.copy(style = descriptionNode.style - TextStyle.Paragraph)
+                } else {
+                    +descriptionNode
+                }
+            }
         }
     }
 }
