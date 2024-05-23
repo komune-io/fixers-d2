@@ -1,9 +1,12 @@
+import io.komune.gradle.dependencies.FixersDependencies
 import io.komune.gradle.dependencies.FixersPluginVersions
 import io.komune.gradle.dependencies.FixersVersions
+import io.komune.gradle.dependencies.Scope
 import org.gradle.kotlin.dsl.embeddedKotlinVersion
 
 object PluginVersions {
 	val fixers = FixersPluginVersions.fixers
+	val fixersOlderVersion = "0.17.0"
 	var kotlinDsl = embeddedKotlinVersion
 	var kotlin = FixersPluginVersions.kotlin
 	var dokka = "1.9.20"
@@ -13,4 +16,12 @@ object PluginVersions {
 object Versions {
 	const val junit = FixersVersions.Test.junit
 	const val jackson = FixersVersions.Json.jackson
+}
+
+object Dependencies {
+	object Jvm {
+		object Kotlin {
+			fun coroutines(scope: Scope) = FixersDependencies.Jvm.Kotlin.coroutines(scope)
+		}
+	}
 }
