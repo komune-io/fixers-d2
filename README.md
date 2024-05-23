@@ -634,6 +634,9 @@ Specifies an example value for a property inside a classlike to use in the [visu
 If an [identifier](#glossary) is given instead, the example of the targeted [documentable](#glossary) (or property) will be used.  
 If a property with a [documentable](#glossary) type lacks an @example tag, it will attempt to use the generated visual of the type if it exists.
 
+> /!\ Any square brackets that should be rendered as-is (to define json arrays for example) must be doubled to be correctly interpreted by the parser (e.g. `@example [["value1", "value2"]]`).  
+> Simple brackets are interpreted as documentation links.
+
 Example:
 
 ```kotlin
