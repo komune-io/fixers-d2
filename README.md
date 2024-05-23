@@ -190,7 +190,8 @@ A model is used to describe the data structures used in the application.
 The technical description is a breakdown of the properties it contains. Each property will have a name, a type, a description, and optionally a default value.  
 For enum classes, each value is considered a property.
 
-By default, the visual representation of a model is an example json object with the properties displayed as key-value pairs.
+By default, the visual representation of a model is an example json object with the properties displayed as key-value pairs.  
+Enums are an exception and do not have a visual representation by default.
 
 Example:
 

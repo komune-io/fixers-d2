@@ -20,8 +20,10 @@ import org.jetbrains.dokka.model.DProperty
 import org.jetbrains.dokka.model.DTypeAlias
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.model.TypeAliased
+import org.jetbrains.dokka.pages.ContentGroup
 import org.jetbrains.dokka.pages.ContentKind
 import org.jetbrains.dokka.pages.ContentNode
+import org.jetbrains.dokka.pages.DCI
 import org.jetbrains.dokka.pages.TextStyle
 
 internal abstract class ModelDescriptionPageContentBuilder(
@@ -72,7 +74,21 @@ internal abstract class ModelDescriptionPageContentBuilder(
                         text(": ")
                         entry.documentation.forEach { (_, docNode) ->
                             docNode.children.firstOrNull()?.root?.let {
-                                firstSentenceComment(it)
+                                val descriptionNode = contentBuilder.commentsConverter.buildContent(
+                                    it,
+                                    DCI(mainDRI, ContentKind.Comment),
+                                    mainSourcesetData
+                                ).firstOrNull()
+
+                                if (descriptionNode != null) {
+                                    group(kind = ContentKind.Comment) {
+                                        if (descriptionNode is ContentGroup) {
+                                            +descriptionNode.copy(style = descriptionNode.style - TextStyle.Paragraph)
+                                        } else {
+                                            +descriptionNode
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
