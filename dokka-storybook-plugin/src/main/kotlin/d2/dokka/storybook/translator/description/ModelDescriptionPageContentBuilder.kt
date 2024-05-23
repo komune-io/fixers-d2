@@ -2,7 +2,6 @@ package d2.dokka.storybook.translator.description
 
 import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.PageDocumentable
-import d2.dokka.storybook.model.doc.RootDocumentable
 import d2.dokka.storybook.model.doc.SectionDocumentable
 import d2.dokka.storybook.model.doc.tag.D2Type
 import d2.dokka.storybook.model.doc.tag.Default
@@ -21,33 +20,26 @@ import org.jetbrains.dokka.model.DProperty
 import org.jetbrains.dokka.model.DTypeAlias
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.model.TypeAliased
+import org.jetbrains.dokka.model.doc.DocTag
+import org.jetbrains.dokka.pages.ContentGroup
 import org.jetbrains.dokka.pages.ContentKind
 import org.jetbrains.dokka.pages.ContentNode
+import org.jetbrains.dokka.pages.DCI
 import org.jetbrains.dokka.pages.TextStyle
 
 internal abstract class ModelDescriptionPageContentBuilder(
-    private val contentBuilder: PageContentBuilder,
+    override val contentBuilder: PageContentBuilder,
     override val documentableIndexes: DocumentableIndexes
 ): DescriptionPageContentBuilder() {
 
     override fun contentFor(d: Documentable): ContentNode? {
         return when (d) {
-            is RootDocumentable -> contentFor(d)
             is PageDocumentable -> contentFor(d)
             is SectionDocumentable -> contentFor(d)
             is DEnum -> contentFor(d)
             is DClasslike -> contentFor(d)
             is DTypeAlias -> contentFor(d)
             else -> null
-        }
-    }
-
-    private fun contentFor(r: RootDocumentable): ContentNode {
-        return contentBuilder.contentFor(r)  {
-            group(kind = ContentKind.Cover) {
-                buildTitle(r)
-                comment(r.pageDocumentation!!.description!!.root)
-            }
         }
     }
 
@@ -83,7 +75,7 @@ internal abstract class ModelDescriptionPageContentBuilder(
                         text(": ")
                         entry.documentation.forEach { (_, docNode) ->
                             docNode.children.firstOrNull()?.root?.let {
-                                firstSentenceComment(it)
+                               commentInLine(it)
                             }
                         }
                     }
@@ -101,7 +93,6 @@ internal abstract class ModelDescriptionPageContentBuilder(
             }
 
             group {
-                +contentForComments(c)
                 propertiesBlock(c.properties)
             }
         }
@@ -182,6 +173,24 @@ internal abstract class ModelDescriptionPageContentBuilder(
         if (d.title() != d.name && !d.isOfType(D2Type.FUNCTION)) {
             text("Type: ")
             text(d.name!!, styles = setOf(D2TextStyle.Code))
+        }
+    }
+
+    private fun PageContentBuilder.DocumentableContentBuilder.commentInLine(docTag: DocTag) {
+        val descriptionNode = contentBuilder.commentsConverter.buildContent(
+            docTag,
+            DCI(mainDRI, ContentKind.Comment),
+            mainSourcesetData
+        ).firstOrNull()
+
+        if (descriptionNode != null) {
+            group(kind = ContentKind.Comment) {
+                if (descriptionNode is ContentGroup) {
+                    +descriptionNode.copy(style = descriptionNode.style - TextStyle.Paragraph)
+                } else {
+                    +descriptionNode
+                }
+            }
         }
     }
 }

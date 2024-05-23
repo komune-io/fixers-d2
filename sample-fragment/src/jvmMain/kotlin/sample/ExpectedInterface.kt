@@ -2,8 +2,8 @@ package sample
 
 /**
  * @d2 model
- * @page
- * @@title Sample Fragment/Expected Interface
+ * @title Expected Interface
+ * @parent [D2FragmentPage]
  */
 actual interface ExpectedInterface {
     actual val predictedStuff: String

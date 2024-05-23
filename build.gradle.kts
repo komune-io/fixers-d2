@@ -22,6 +22,7 @@ subprojects {
             dependencies {
                 plugins(project(":dokka-storybook-plugin"))
             }
+            outputDirectory.set(file("build/d2"))
         }
     }
 }
@@ -33,6 +34,6 @@ tasks {
         }
         addChildTask(dokkaStorybookPartial)
         addSubprojectChildTasks(dokkaStorybookPartial)
-        outputDirectory.set(file("storybook/docs/d2"))
+        outputDirectory.set(file("storybook/stories/d2"))
     }
 }

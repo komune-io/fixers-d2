@@ -4,6 +4,7 @@ import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.utils.title
 import d2.dokka.storybook.model.page.D2StorybookPageNode
 import d2.dokka.storybook.model.page.FileData
+import d2.dokka.storybook.model.page.documentable
 import d2.dokka.storybook.model.page.recursiveDocumentables
 import org.jetbrains.dokka.base.resolvers.local.DokkaLocationProvider
 import org.jetbrains.dokka.base.resolvers.local.LocationProviderFactory
@@ -91,11 +92,11 @@ class D2StorybookLocationProvider(
 
         val targetDocumentable = documentableIndexes.documentables[dri] ?: return null
         val targetRoot = targetDocumentable.firstAncestor()
-        val contextRoot = context.documentable!!.firstAncestor()
+        val contextRoot = context.documentable()!!.firstAncestor()
 
         val pathBuilder = StringBuilder()
         if (targetRoot !== contextRoot) {
-            pathBuilder.append("/docs/${targetRoot.sanitizedTitle}--page")
+            pathBuilder.append("/docs/${targetRoot.sanitizedTitle}--docs")
         }
         pathBuilder.append("#${targetDocumentable.sanitizedTitle}")
 

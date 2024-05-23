@@ -25,3 +25,11 @@ dependencies {
     testImplementation("org.jetbrains.dokka:dokka-test-api:${PluginVersions.dokka}")
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes(
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version
+        )
+    }
+}

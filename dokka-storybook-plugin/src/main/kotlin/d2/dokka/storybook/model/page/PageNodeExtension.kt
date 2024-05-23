@@ -13,3 +13,9 @@ private fun PageNode.documentables() = if (this is WithDocumentables) {
 } else {
     emptyList()
 }
+
+fun PageNode.documentable() = if (this is WithDocumentables) {
+    this.documentables.firstOrNull()
+} else {
+    null
+}
