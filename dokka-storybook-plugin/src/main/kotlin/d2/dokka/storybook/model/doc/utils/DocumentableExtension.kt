@@ -114,6 +114,8 @@ fun Documentable.directAnnotations(): List<Annotations.Annotation> = (this as? W
 fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = directAnnotations()
 	.firstOrNull { annotation -> annotation.dri == dri }
 
+fun Documentable.hasDirectAnnotation(dri: DRI): Boolean = directAnnotation(dri) != null
+
 
 /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20 ----- */
 

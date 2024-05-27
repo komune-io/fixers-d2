@@ -35,10 +35,10 @@ internal abstract class ServiceDescriptionPageContentBuilder(
         val signature = FunctionSignature.of(function, documentableIndexes)
         text(signature.name, styles = setOf(TextStyle.Bold))
         text("(")
-        signature.params.forEachIndexed { i, (name, type) ->
+        signature.params.forEachIndexed { i, param ->
             val separator = if (i > 0) ", " else ""
-            text("$separator$name:")
-            type(type)
+            text("$separator${param.name}:")
+            type(param.type)
         }
         text(")")
         signature.returnType?.let {

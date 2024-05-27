@@ -1,7 +1,9 @@
 package d2.dokka.storybook.translator.description
 
+import d2.dokka.storybook.model.Constants
 import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.tag.D2Type
+import d2.dokka.storybook.model.doc.utils.directAnnotation
 import d2.dokka.storybook.model.doc.utils.documentableIn
 import d2.dokka.storybook.model.doc.utils.f2FunctionType
 import d2.dokka.storybook.model.doc.utils.isCommand
@@ -19,6 +21,7 @@ import org.jetbrains.dokka.model.DClasslike
 import org.jetbrains.dokka.model.DFunction
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.model.Projection
+import org.jetbrains.dokka.model.StringValue
 import org.jetbrains.dokka.pages.ContentKind
 import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.ContentStyle
@@ -79,7 +82,7 @@ internal abstract class FunctionListDescriptionPageContentBuilder: DescriptionPa
 
     protected data class FunctionSignature(
         val name: String,
-        val params: List<Pair<String, Projection>>,
+        val params: List<FunctionParameter>,
         val returnType: Projection?
     ) {
         companion object {
@@ -91,12 +94,12 @@ internal abstract class FunctionListDescriptionPageContentBuilder: DescriptionPa
                     return when {
                         functionType.isF2Consumer() -> FunctionSignature(
                             name = function.name,
-                            params = listOf(paramName to functionType.projections.first()),
+                            params = listOf(FunctionParameter(name = paramName, type = functionType.projections.first())),
                             returnType = null,
                         )
                         functionType.isF2Function() -> FunctionSignature(
                             name = function.name,
-                            params = listOf(paramName to functionType.projections.first()),
+                            params = listOf(FunctionParameter(name = paramName, type = functionType.projections.first())),
                             returnType = functionType.projections.last(),
                         )
                         functionType.isF2Supplier() -> FunctionSignature(
@@ -114,10 +117,21 @@ internal abstract class FunctionListDescriptionPageContentBuilder: DescriptionPa
 
                 return FunctionSignature(
                     name = function.name,
-                    params = function.parameters.map { param -> param.name.orEmpty() to param.type },
+                    params = function.parameters.map { param -> FunctionParameter(
+                        name = param.name.orEmpty(),
+                        type = param.type,
+                        annotationName = param.directAnnotation(Constants.Annotation.REQUEST_PART)
+                            ?.let { annotation -> (annotation.params["value"] as? StringValue)?.value }
+                    ) },
                     returnType = function.type.takeUnless { it.toTypeString(documentableIndexes.documentables) == "Unit" },
                 )
             }
         }
     }
+
+    protected data class FunctionParameter(
+        val name: String,
+        val type: Projection,
+        val annotationName: String? = null
+    )
 }

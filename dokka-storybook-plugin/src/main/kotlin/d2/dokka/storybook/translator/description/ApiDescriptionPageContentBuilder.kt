@@ -5,8 +5,10 @@ import d2.dokka.storybook.model.doc.DocumentableIndexes
 import d2.dokka.storybook.model.doc.utils.directAnnotation
 import d2.dokka.storybook.model.doc.utils.directAnnotations
 import d2.dokka.storybook.model.doc.utils.f2FunctionType
+import d2.dokka.storybook.model.doc.utils.hasDirectAnnotation
 import d2.dokka.storybook.model.doc.utils.isF2
 import d2.dokka.storybook.model.doc.utils.isF2Supplier
+import d2.dokka.storybook.model.render.D2TextStyle
 import d2.dokka.storybook.translator.block
 import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
 import org.jetbrains.dokka.model.ArrayValue
@@ -27,7 +29,6 @@ internal abstract class ApiDescriptionPageContentBuilder(
             val signature = FunctionSignature.of(function, documentableIndexes)
             group(setOf(function.dri), function.sourceSets.toSet(), ContentKind.Main) {
                 header(4, "${function.httpMethod()} /${signature.name}")
-                functionAccess(function)
 
                 function.documentation.forEach { (_, docNode) ->
                     docNode.children.firstOrNull()?.root?.let {
@@ -36,16 +37,31 @@ internal abstract class ApiDescriptionPageContentBuilder(
                         }
                     }
                 }
+
+                functionContentType(function)
+                functionAccess(function)
             }
             group(setOf(function.dri), function.sourceSets.toSet(), ContentKind.Parameters) {
                 if (signature.params.isNotEmpty()) {
                     breakLine()
                     text("Body: ")
                 }
-                signature.params.forEachIndexed { i, (_, type) ->
-                    val separator = if (i > 0) ", " else ""
-                    text(separator)
-                    type(type)
+                val isMultipart = function.isMultipartFormData()
+                signature.params.forEachIndexed { i, param ->
+                    when {
+                        isMultipart -> {
+                            breakLine()
+                            text(param.name, styles = setOf(D2TextStyle.Code))
+                            text(": ")
+                            type(param.type)
+                        }
+                        else -> {
+                            if (i > 0) {
+                                text(", ")
+                            }
+                            type(param.type)
+                        }
+                    }
                 }
                 breakLine()
                 if (signature.returnType != null) {
@@ -80,9 +96,22 @@ internal abstract class ApiDescriptionPageContentBuilder(
         }
     }
 
+    private fun PageContentBuilder.DocumentableContentBuilder.functionContentType(function: DFunction) {
+        val contentType = when {
+            function.isMultipartFormData() -> "multipart/form-data"
+            else -> "application/json"
+        }
+        text("Content-Type: $contentType", styles = setOf(TextStyle.Italic))
+    }
+
+    private fun DFunction.isMultipartFormData() = parameters.any { it.hasDirectAnnotation(Constants.Annotation.REQUEST_PART) }
+
     private fun PageContentBuilder.DocumentableContentBuilder.functionAccess(function: DFunction) {
         function.directAnnotation(Constants.Annotation.PERMIT_ALL)
-            ?.let { text("Access: public", styles = setOf(TextStyle.Italic)) }
+            ?.let {
+                breakLine()
+                text("Access: public", styles = setOf(TextStyle.Italic))
+            }
 
         function.directAnnotation(Constants.Annotation.ROLES_ALLOWED)
             ?.let { annotation ->
@@ -91,6 +120,7 @@ internal abstract class ApiDescriptionPageContentBuilder(
                     .orEmpty()
                     .map { it as LiteralValue }
                     .map(LiteralValue::text)
+                breakLine()
                 text("Access: ${roles.joinToString(", ")}", styles = setOf(TextStyle.Italic))
             }
     }

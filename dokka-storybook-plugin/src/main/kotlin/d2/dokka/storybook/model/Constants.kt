@@ -6,13 +6,18 @@ import org.jetbrains.dokka.links.PointingToDeclaration
 object Constants {
     object Annotation {
         val ROLES_ALLOWED = DRI(
-            packageName = "javax.annotation.security",
+            packageName = "jakarta.annotation.security",
             classNames = "RolesAllowed",
             target = PointingToDeclaration
         )
         val PERMIT_ALL = DRI(
-            packageName = "javax.annotation.security",
+            packageName = "jakarta.annotation.security",
             classNames = "PermitAll",
+            target = PointingToDeclaration
+        )
+        val REQUEST_PART = DRI(
+            packageName = "org.springframework.web.bind.annotation",
+            classNames = "RequestPart",
             target = PointingToDeclaration
         )
         object RestMapping {
