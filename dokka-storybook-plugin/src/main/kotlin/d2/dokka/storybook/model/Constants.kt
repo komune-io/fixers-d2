@@ -15,5 +15,33 @@ object Constants {
             classNames = "PermitAll",
             target = PointingToDeclaration
         )
+        object RestMapping {
+            private const val PACKAGE_NAME = "org.springframework.web.bind.annotation"
+            val GET = DRI(
+                packageName = PACKAGE_NAME,
+                classNames = "GetMapping",
+                target = PointingToDeclaration
+            )
+            val POST = DRI(
+                packageName = PACKAGE_NAME,
+                classNames = "PostMapping",
+                target = PointingToDeclaration
+            )
+            val PUT = DRI(
+                packageName = PACKAGE_NAME,
+                classNames = "PutMapping",
+                target = PointingToDeclaration
+            )
+            val PATCH = DRI(
+                packageName = PACKAGE_NAME,
+                classNames = "PatchMapping",
+                target = PointingToDeclaration
+            )
+            val DELETE = DRI(
+                packageName = PACKAGE_NAME,
+                classNames = "DeleteMapping",
+                target = PointingToDeclaration
+            )
+        }
     }
 }

@@ -104,12 +104,14 @@ private fun Documentable.defaultVisualType() = when (this) {
 }
 
 @Suppress("UNCHECKED_CAST")
-fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = (this as? WithExtraProperties<Documentable>)
+fun Documentable.directAnnotations(): List<Annotations.Annotation> = (this as? WithExtraProperties<Documentable>)
 	?.extra
 	?.get(Annotations)
 	?.directAnnotations
 	.orEmpty()
 	.flatMap { it.value }
+
+fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = directAnnotations()
 	.firstOrNull { annotation -> annotation.dri == dri }
 
 
