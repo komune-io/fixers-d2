@@ -26,7 +26,7 @@ import org.jetbrains.dokka.pages.ContentKind
 import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.ContentStyle
 
-internal abstract class FunctionListDescriptionPageContentBuilder: DescriptionPageContentBuilder() {
+internal abstract class FunctionListDescriptionPageContentBuilder : DescriptionPageContentBuilder() {
 
     override fun contentFor(d: Documentable): ContentNode? {
         return when (d) {
@@ -63,7 +63,7 @@ internal abstract class FunctionListDescriptionPageContentBuilder: DescriptionPa
 
     protected abstract fun PageContentBuilder.DocumentableContentBuilder.functionsBlock(functions: Collection<DFunction>)
 
-    protected open fun PageContentBuilder.DocumentableContentBuilder.type(type: Projection)  {
+    protected open fun PageContentBuilder.DocumentableContentBuilder.type(type: Projection) {
         val typeDocumentable = type.documentableIn(documentableIndexes.documentables)
         if (typeDocumentable == null) {
             text(type.toTypeString(documentableIndexes.documentables), styles = setOf(D2TextStyle.Code))

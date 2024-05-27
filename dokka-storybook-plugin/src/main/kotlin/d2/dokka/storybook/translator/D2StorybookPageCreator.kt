@@ -87,10 +87,10 @@ class D2StorybookPageCreator(
         else -> InnerModelDescriptionPageContentBuilder()
     }
 
-    private inner class InnerApiDescriptionPageContentBuilder: ApiDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerMainPageContentBuilder: MainPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerModelDescriptionPageContentBuilder: ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerServiceDescriptionPageContentBuilder: ServiceDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerVisualPageContentBuilder: VisualPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerRootPageContentBuilder: RootPageContentBuilder(contentBuilder)
+    private inner class InnerApiDescriptionPageContentBuilder : ApiDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerMainPageContentBuilder : MainPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerModelDescriptionPageContentBuilder : ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerServiceDescriptionPageContentBuilder : ServiceDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerVisualPageContentBuilder : VisualPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerRootPageContentBuilder : RootPageContentBuilder(contentBuilder)
 }

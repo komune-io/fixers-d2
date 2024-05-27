@@ -20,7 +20,7 @@ import org.jetbrains.dokka.pages.TextStyle
 internal abstract class ApiDescriptionPageContentBuilder(
     override val contentBuilder: PageContentBuilder,
     override val documentableIndexes: DocumentableIndexes
-): FunctionListDescriptionPageContentBuilder() {
+) : FunctionListDescriptionPageContentBuilder() {
 
     override fun PageContentBuilder.DocumentableContentBuilder.functionsBlock(
         functions: Collection<DFunction>,
