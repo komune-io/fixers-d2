@@ -37,7 +37,7 @@ private fun Bound.toTypeString(documentables: Map<DRI, Documentable>): String {
         is TypeParameter -> dri.classNames ?: "Unknown"
         is TypeConstructor -> toTypeString(documentables)
         is Nullable -> "${inner.toTypeString(documentables)}?"
-        is TypeAliased -> typeAlias.toTypeString(documentables)
+        is TypeAliased -> toTypeString(documentables)
         is PrimitiveJavaType -> name
         is Void -> "Unit"
         is JavaObject -> "JavaObject"
@@ -57,6 +57,15 @@ private fun TypeConstructor.toTypeString(documentables: Map<DRI, Documentable>):
     }
     val projectionNames = this.projections.joinToString(", ") { it.toTypeString(documentables) }
     return "$typeName<$projectionNames>"
+}
+
+private fun TypeAliased.toTypeString(documentables: Map<DRI, Documentable>): String {
+    val typeDocumentable = documentableIn(documentables)
+    return if (typeDocumentable != null && typeDocumentable.isOfType(D2Type.HIDDEN)) {
+        inner.toTypeString(documentables)
+    } else {
+        typeAlias.toTypeString(documentables)
+    }
 }
 
 fun Projection.documentableIn(documentables: Map<DRI, Documentable>): Documentable? {
