@@ -7,7 +7,7 @@ import d2.dokka.storybook.model.doc.utils.d2Type
 import d2.dokka.storybook.model.page.FileData
 import d2.dokka.storybook.model.page.ModelPageNode
 import d2.dokka.storybook.service.DocumentablePageSelector
-import d2.dokka.storybook.translator.description.FunctionDisplayType
+import d2.dokka.storybook.translator.description.ApiDescriptionPageContentBuilder
 import d2.dokka.storybook.translator.description.ModelDescriptionPageContentBuilder
 import d2.dokka.storybook.translator.description.ServiceDescriptionPageContentBuilder
 import d2.dokka.storybook.translator.root.MainPageContentBuilder
@@ -82,15 +82,16 @@ class D2StorybookPageCreator(
     }
 
     private fun D2Type?.descriptionContentBuilder() = when (this) {
-        D2Type.API -> InnerServiceDescriptionPageContentBuilder(FunctionDisplayType.HTTP)
-        D2Type.SERVICE -> InnerServiceDescriptionPageContentBuilder(FunctionDisplayType.KOTLIN)
+        D2Type.API -> InnerApiDescriptionPageContentBuilder()
+        D2Type.SERVICE -> InnerServiceDescriptionPageContentBuilder()
         else -> InnerModelDescriptionPageContentBuilder()
     }
 
-    private inner class InnerMainPageContentBuilder: MainPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerModelDescriptionPageContentBuilder: ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerServiceDescriptionPageContentBuilder(display: FunctionDisplayType):
-        ServiceDescriptionPageContentBuilder(display, contentBuilder, documentableIndexes)
-    private inner class InnerVisualPageContentBuilder: VisualPageContentBuilder(contentBuilder, documentableIndexes)
-    private inner class InnerRootPageContentBuilder: RootPageContentBuilder(contentBuilder)
+    private inner class InnerApiDescriptionPageContentBuilder : ApiDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerMainPageContentBuilder : MainPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerModelDescriptionPageContentBuilder : ModelDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerServiceDescriptionPageContentBuilder
+        : ServiceDescriptionPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerVisualPageContentBuilder : VisualPageContentBuilder(contentBuilder, documentableIndexes)
+    private inner class InnerRootPageContentBuilder : RootPageContentBuilder(contentBuilder)
 }

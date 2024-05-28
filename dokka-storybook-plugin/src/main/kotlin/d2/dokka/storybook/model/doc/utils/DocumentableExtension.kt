@@ -104,13 +104,17 @@ private fun Documentable.defaultVisualType() = when (this) {
 }
 
 @Suppress("UNCHECKED_CAST")
-fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = (this as? WithExtraProperties<Documentable>)
+fun Documentable.directAnnotations(): List<Annotations.Annotation> = (this as? WithExtraProperties<Documentable>)
 	?.extra
 	?.get(Annotations)
 	?.directAnnotations
 	.orEmpty()
 	.flatMap { it.value }
+
+fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = directAnnotations()
 	.firstOrNull { annotation -> annotation.dri == dri }
+
+fun Documentable.hasDirectAnnotation(dri: DRI): Boolean = directAnnotation(dri) != null
 
 
 /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20 ----- */
