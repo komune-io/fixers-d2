@@ -119,10 +119,12 @@ internal abstract class ModelDescriptionPageContentBuilder(
                 if (ref.callable == null) {
                     throw IllegalArgumentException("Tag @ref of a property must link to a property (${property.dri} -> $ref")
                 }
-                val refProperty = (documentableIndexes.documentables[ref.copy(callable = null)] as DClasslike)
-                    .properties
-                    .first { it.name == ref.callable!!.name }
-
+                val refProperty = (documentableIndexes.documentables[ref.copy(callable = null)] as DClasslike?)
+                    ?.properties
+                    ?.first { it.name == ref.callable!!.name }
+                if(refProperty == null) {
+                    throw IllegalArgumentException("Property ${ref.callable!!.name} not found in ${property.name}:${property.dri}")
+                }
                 propertyComment(refProperty)
             } else {
                 propertyComment(property)
