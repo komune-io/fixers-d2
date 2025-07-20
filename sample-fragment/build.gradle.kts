@@ -1,5 +1,3 @@
-import io.komune.gradle.dependencies.FixersDependencies
-
 plugins {
     kotlin("multiplatform")
 }

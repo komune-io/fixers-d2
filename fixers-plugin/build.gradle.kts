@@ -43,4 +43,3 @@ gradlePlugin {
 	}
 }
 
-apply(from = rootProject.file("gradle/publishing_plugin.gradle"))

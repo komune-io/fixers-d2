@@ -1,11 +1,9 @@
-import io.komune.gradle.dependencies.FixersDependencies
 
 plugins {
     `kotlin-dsl`
     kotlin("jvm")
 }
 
-apply(from = rootProject.file("gradle/publishing_module.gradle"))
 
 project.plugins.withId("java-gradle-plugin") { // only do it if it's actually applied
     project.configure<GradlePluginDevelopmentExtension> {
@@ -14,7 +12,7 @@ project.plugins.withId("java-gradle-plugin") { // only do it if it's actually ap
 }
 
 dependencies {
-    FixersDependencies.Jvm.Kotlin.coroutines(::implementation)
+    Dependencies.Jvm.Kotlin.coroutines(::implementation)
     compileOnly("org.jetbrains.dokka:dokka-core:${PluginVersions.dokka}")
     implementation("org.jetbrains.dokka:dokka-base:${PluginVersions.dokka}")
     implementation("org.jetbrains.dokka:gfm-plugin:${PluginVersions.dokka}")
