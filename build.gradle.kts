@@ -11,7 +11,6 @@ plugins {
 
 allprojects {
     group = "io.komune.d2"
-    version = System.getenv("VERSION") ?: "local"
     repositories {
         defaultRepo()
     }

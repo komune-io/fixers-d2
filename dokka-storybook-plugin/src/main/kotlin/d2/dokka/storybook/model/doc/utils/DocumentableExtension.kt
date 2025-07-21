@@ -117,7 +117,9 @@ fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = directAnn
 fun Documentable.hasDirectAnnotation(dri: DRI): Boolean = directAnnotation(dri) != null
 
 
-/* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20 ----- */
+/* -----
+	After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20
+	----- */
 
 typealias GroupedTags = Map<KClass<out TagWrapper>, List<Pair<DokkaSourceSet?, TagWrapper>>>
 

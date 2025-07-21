@@ -2,6 +2,7 @@ plugins {
 	`kotlin-dsl`
 	`java-gradle-plugin`
 	id("com.gradle.plugin-publish")
+	id("io.komune.fixers.gradle.publishing")
 }
 
 repositories {
@@ -43,3 +44,10 @@ gradlePlugin {
 	}
 }
 
+fixers {
+	publish {
+		gradlePlugin.set(listOf(
+			"io.komune.fixers.gradle.d2PluginMarkerMaven",
+		))
+	}
+}

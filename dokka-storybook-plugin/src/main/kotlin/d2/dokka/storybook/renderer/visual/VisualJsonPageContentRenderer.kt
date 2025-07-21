@@ -12,7 +12,6 @@ class VisualJsonPageContentRenderer: VisualPageContentRenderer() {
     override val visualType = "Json"
 
     override fun StringBuilder.buildProperties(node: ContentGroup, pageContext: ContentPage) {
-        val header = node.children.first()
         val properties = node.children.drop(1)
 
         append("{")

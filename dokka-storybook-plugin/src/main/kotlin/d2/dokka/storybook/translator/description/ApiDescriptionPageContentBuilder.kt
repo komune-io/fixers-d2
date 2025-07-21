@@ -28,7 +28,7 @@ internal abstract class ApiDescriptionPageContentBuilder(
         block(kind = ContentKind.Functions, elements = functions) { function ->
             val signature = FunctionSignature.of(function, documentableIndexes)
             group(setOf(function.dri), function.sourceSets.toSet(), ContentKind.Main) {
-                header(4, "${function.httpMethod()} /${signature.name}")
+                header(level = 4, "${function.httpMethod()} /${signature.name}")
 
                 function.documentation.forEach { (_, docNode) ->
                     docNode.children.firstOrNull()?.root?.let {
@@ -104,7 +104,9 @@ internal abstract class ApiDescriptionPageContentBuilder(
         text("Content-Type: $contentType", styles = setOf(TextStyle.Italic))
     }
 
-    private fun DFunction.isMultipartFormData() = parameters.any { it.hasDirectAnnotation(Constants.Annotation.REQUEST_PART) }
+    private fun DFunction.isMultipartFormData() = parameters.any { 
+        it.hasDirectAnnotation(Constants.Annotation.REQUEST_PART) 
+    }
 
     private fun PageContentBuilder.DocumentableContentBuilder.functionAccess(function: DFunction) {
         function.directAnnotation(Constants.Annotation.PERMIT_ALL)

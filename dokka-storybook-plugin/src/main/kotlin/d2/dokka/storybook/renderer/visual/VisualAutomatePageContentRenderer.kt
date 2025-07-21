@@ -28,6 +28,7 @@ class VisualAutomatePageContentRenderer: VisualPageContentRenderer() {
         buildContentNode(node.children.first(), pageContext)
     }
 
+    @Suppress("EmptyFunctionBlock")
     override fun StringBuilder.buildProperties(node: ContentGroup, pageContext: ContentPage) {}
     override fun Style.decorators(): Pair<String, String>? { return null }
 }

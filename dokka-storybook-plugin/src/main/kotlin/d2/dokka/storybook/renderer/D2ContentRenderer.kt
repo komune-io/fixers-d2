@@ -7,7 +7,8 @@ interface D2ContentRenderer {
 
     var d2LocationProvider: D2StorybookLocationProvider
 
-    fun buildPage(page: ContentPage, locationProvider: D2StorybookLocationProvider, content: (StringBuilder, ContentPage) -> Unit): String {
+    fun buildPage(page: ContentPage, locationProvider: D2StorybookLocationProvider,
+               content: (StringBuilder, ContentPage) -> Unit): String {
         this.d2LocationProvider = locationProvider
         return buildString {
             content(this, page)

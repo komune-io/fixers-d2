@@ -12,7 +12,11 @@ class DocsTableComponent(
     gridColumnNumber: Int = 2,
 ): ReactComponent {
     override val identifier: String = "DocsTable"
-    override val importData: CodeImport = CodeImport(path = ImportPath.G2_DOCUMENTATION, element = identifier, isComposite = true)
+    override val importData: CodeImport = CodeImport(
+        path = ImportPath.G2_DOCUMENTATION, 
+        element = identifier, 
+        isComposite = true
+    )
     override val params: Map<String, CodeElement> = mapOf("gridColumnNumber" to LiteralNode("$gridColumnNumber"))
     override val children: Collection<CodeElement> = blocks.map { SimpleHtmlElement("div", listOf(it)) }
 }

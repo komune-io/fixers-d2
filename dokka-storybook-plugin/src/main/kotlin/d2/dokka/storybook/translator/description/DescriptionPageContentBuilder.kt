@@ -47,7 +47,8 @@ abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
         return parent.headerLevel() + headerInc
     }
 
-    /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DescriptionSections.kt v1.9.20 ----- */
+    /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.
+       DescriptionSections.kt v1.9.20 ----- */
 
     private val unnamedTagsExceptions: Set<KClass<out TagWrapper>> =
         setOf(Property::class, Description::class, Constructor::class, Param::class, See::class)
@@ -73,6 +74,7 @@ abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
      * This function handles tags that have only value parameter without name.
      * List of such tags: `@return`, `@author`, `@since`, `@receiver`
      */
+    @Suppress("NestedBlockDepth")
     private fun PageContentBuilder.DocumentableContentBuilder.unnamedTagSectionContent(
         documentable: Documentable,
         sourceSets: Set<DokkaConfiguration.DokkaSourceSet>

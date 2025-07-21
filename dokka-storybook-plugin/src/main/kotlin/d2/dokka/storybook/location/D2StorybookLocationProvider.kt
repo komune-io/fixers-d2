@@ -56,7 +56,8 @@ class D2StorybookLocationProvider(
 
     override fun pathTo(node: PageNode, context: PageNode?): String {
         fun pathFor(page: PageNode) = pathsIndex[page] ?: throw AssertionError(
-            "${page::class.simpleName}(${page.name}) does not belong to the current page graph so it is impossible to compute its path"
+            "${page::class.simpleName}(${page.name}) does not belong to the current page graph " +
+            "so it is impossible to compute its path"
         )
 
         val nodePath = pathFor(node)
@@ -85,6 +86,7 @@ class D2StorybookLocationProvider(
             listOf(node.fileData.toString())
         }
 
+    @Suppress("ReturnCount")
     fun resolveAnchor(dri: DRI, context: PageNode): String? {
         if (context !is ContentPage) {
             return null
