@@ -10,6 +10,7 @@ import d2.dokka.storybook.model.doc.tag.Order
 import d2.dokka.storybook.model.doc.tag.Title
 import d2.dokka.storybook.model.doc.tag.Visual
 import d2.dokka.storybook.model.doc.tag.VisualType
+import kotlin.reflect.KClass
 import org.jetbrains.dokka.DokkaConfiguration.DokkaSourceSet
 import org.jetbrains.dokka.links.DRI
 import org.jetbrains.dokka.links.sureClassNames
@@ -25,7 +26,6 @@ import org.jetbrains.dokka.model.doc.TagWrapper
 import org.jetbrains.dokka.model.orEmpty
 import org.jetbrains.dokka.model.properties.PropertyContainer
 import org.jetbrains.dokka.model.properties.WithExtraProperties
-import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
 fun Documentable.toPageDocumentable() = PageDocumentable(

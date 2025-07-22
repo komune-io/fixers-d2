@@ -7,6 +7,8 @@ import d2.dokka.storybook.model.doc.utils.groupedTags
 import d2.dokka.storybook.model.doc.utils.isOfType
 import d2.dokka.storybook.model.doc.utils.title
 import d2.dokka.storybook.translator.D2StorybookPageContentBuilder
+import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
 import org.jetbrains.dokka.model.Documentable
@@ -19,8 +21,6 @@ import org.jetbrains.dokka.model.doc.See
 import org.jetbrains.dokka.model.doc.TagWrapper
 import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.ContentStyle
-import kotlin.reflect.KClass
-import kotlin.reflect.full.isSubclassOf
 
 abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
     protected abstract val contentBuilder: PageContentBuilder

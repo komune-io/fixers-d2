@@ -2,9 +2,9 @@ import io.komune.fixers.gradle.dependencies.FixersDependencies
 import io.komune.fixers.gradle.dependencies.FixersPluginVersions
 import io.komune.fixers.gradle.dependencies.FixersVersions
 import io.komune.fixers.gradle.dependencies.Scope
-import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import java.net.URI
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.embeddedKotlinVersion
 
 object PluginVersions {
 	val fixers = FixersPluginVersions.fixers
