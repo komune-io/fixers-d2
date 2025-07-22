@@ -7,6 +7,8 @@ import d2.dokka.storybook.model.doc.utils.groupedTags
 import d2.dokka.storybook.model.doc.utils.isOfType
 import d2.dokka.storybook.model.doc.utils.title
 import d2.dokka.storybook.translator.D2StorybookPageContentBuilder
+import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
 import org.jetbrains.dokka.model.Documentable
@@ -19,8 +21,6 @@ import org.jetbrains.dokka.model.doc.See
 import org.jetbrains.dokka.model.doc.TagWrapper
 import org.jetbrains.dokka.pages.ContentNode
 import org.jetbrains.dokka.pages.ContentStyle
-import kotlin.reflect.KClass
-import kotlin.reflect.full.isSubclassOf
 
 abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
     protected abstract val contentBuilder: PageContentBuilder
@@ -47,7 +47,8 @@ abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
         return parent.headerLevel() + headerInc
     }
 
-    /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DescriptionSections.kt v1.9.20 ----- */
+    /* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.
+       DescriptionSections.kt v1.9.20 ----- */
 
     private val unnamedTagsExceptions: Set<KClass<out TagWrapper>> =
         setOf(Property::class, Description::class, Constructor::class, Param::class, See::class)
@@ -73,6 +74,7 @@ abstract class DescriptionPageContentBuilder: D2StorybookPageContentBuilder {
      * This function handles tags that have only value parameter without name.
      * List of such tags: `@return`, `@author`, `@since`, `@receiver`
      */
+    @Suppress("NestedBlockDepth")
     private fun PageContentBuilder.DocumentableContentBuilder.unnamedTagSectionContent(
         documentable: Documentable,
         sourceSets: Set<DokkaConfiguration.DokkaSourceSet>

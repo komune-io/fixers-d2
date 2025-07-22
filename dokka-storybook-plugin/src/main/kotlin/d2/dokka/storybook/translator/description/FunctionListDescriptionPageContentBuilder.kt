@@ -61,7 +61,9 @@ internal abstract class FunctionListDescriptionPageContentBuilder : DescriptionP
         }
     }
 
-    protected abstract fun PageContentBuilder.DocumentableContentBuilder.functionsBlock(functions: Collection<DFunction>)
+    protected abstract fun PageContentBuilder.DocumentableContentBuilder.functionsBlock(
+        functions: Collection<DFunction>
+    )
 
     protected open fun PageContentBuilder.DocumentableContentBuilder.type(type: Projection) {
         val typeDocumentable = type.documentableIn(documentableIndexes.documentables)
@@ -89,17 +91,25 @@ internal abstract class FunctionListDescriptionPageContentBuilder : DescriptionP
             fun of(function: DFunction, documentableIndexes: DocumentableIndexes): FunctionSignature {
                 if (function.type.isF2()) {
                     val functionType = function.f2FunctionType()
-                    val paramName = if (function.isF2CommandFunction(documentableIndexes.documentables)) "cmd" else "query"
+                    val paramName = if (function.isF2CommandFunction(documentableIndexes.documentables)) {
+                        "cmd"
+                    } else {
+                        "query"
+                    }
 
                     return when {
                         functionType.isF2Consumer() -> FunctionSignature(
                             name = function.name,
-                            params = listOf(FunctionParameter(name = paramName, type = functionType.projections.first())),
+                            params = listOf(
+                                FunctionParameter(name = paramName, type = functionType.projections.first())
+                            ),
                             returnType = null,
                         )
                         functionType.isF2Function() -> FunctionSignature(
                             name = function.name,
-                            params = listOf(FunctionParameter(name = paramName, type = functionType.projections.first())),
+                            params = listOf(
+                                FunctionParameter(name = paramName, type = functionType.projections.first())
+                            ),
                             returnType = functionType.projections.last(),
                         )
                         functionType.isF2Supplier() -> FunctionSignature(
@@ -123,7 +133,9 @@ internal abstract class FunctionListDescriptionPageContentBuilder : DescriptionP
                         annotationName = param.directAnnotation(Constants.Annotation.REQUEST_PART)
                             ?.let { annotation -> (annotation.params["value"] as? StringValue)?.value }
                     ) },
-                    returnType = function.type.takeUnless { it.toTypeString(documentableIndexes.documentables) == "Unit" },
+                    returnType = function.type.takeUnless { 
+                        it.toTypeString(documentableIndexes.documentables) == "Unit" 
+                    },
                 )
             }
         }

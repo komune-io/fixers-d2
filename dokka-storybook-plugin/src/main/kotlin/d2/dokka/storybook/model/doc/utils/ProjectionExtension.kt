@@ -79,7 +79,8 @@ fun Projection.documentableIn(documentables: Map<DRI, Documentable>): Documentab
 private fun Bound.documentableIn(documentables: Map<DRI, Documentable>): Documentable? {
     return when (this) {
         is TypeParameter -> documentables[dri]
-        is TypeConstructor -> documentables[driOrNull] ?: projections.firstNotNullOfOrNull { it.documentableIn(documentables) }
+        is TypeConstructor -> documentables[driOrNull] 
+            ?: projections.firstNotNullOfOrNull { it.documentableIn(documentables) }
         is Nullable -> inner.documentableIn(documentables)
         is TypeAliased -> typeAlias.documentableIn(documentables) ?: inner.documentableIn(documentables)
         else -> null

@@ -2,6 +2,7 @@ plugins {
 	`kotlin-dsl`
 	`java-gradle-plugin`
 	id("com.gradle.plugin-publish")
+	id("io.komune.fixers.gradle.publishing")
 }
 
 repositories {
@@ -10,10 +11,9 @@ repositories {
 }
 
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginVersions.kotlin}")
-	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${PluginVersions.kotlin}")
-
-	implementation("org.jetbrains.dokka:dokka-gradle-plugin:${PluginVersions.dokka}")
+	implementation(libs.kotlin.gradle.plugin)
+	implementation(libs.kotlin.compiler.embeddable)
+	implementation(libs.dokka.gradle.plugin)
 
 	implementation(project(":dokka-storybook-plugin"))
 	implementation("io.komune.fixers.gradle:config:${PluginVersions.fixers}")
@@ -43,4 +43,10 @@ gradlePlugin {
 	}
 }
 
-apply(from = rootProject.file("gradle/publishing_plugin.gradle"))
+fixers {
+	publish {
+		gradlePlugin.set(listOf(
+			"io.komune.fixers.gradle.d2PluginMarkerMaven",
+		))
+	}
+}

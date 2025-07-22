@@ -114,6 +114,7 @@ abstract class VisualPageContentBuilder(
 		}
 	}
 
+	@Suppress("ReturnCount")
 	private fun contentForLinkedSample(d: Documentable, targetTag: WithTarget, visualType: VisualType?): ContentNode? {
 		val targetDri = targetTag.target ?: return null
 
@@ -129,11 +130,14 @@ abstract class VisualPageContentBuilder(
 		return contentFor(targetProperty.copy(name = d.name!!), visualType)
 	}
 
+	@Suppress("ReturnCount")
 	private fun contentForUntaggedProperty(property: DProperty, visualType: VisualType?): ContentNode? {
 		val refTag = property.d2DocTagExtra().firstTagOfTypeOrNull<Ref>()
 		if (refTag != null) {
 			if (refTag.target?.callable == null) {
-				throw IllegalArgumentException("Tag @ref of a property must link to a property (${property.dri} -> ${refTag.target}")
+				throw IllegalArgumentException(
+					"Tag @ref of a property must link to a property (${property.dri} -> ${refTag.target}"
+				)
 			}
 			return contentForLinkedSample(property, refTag, visualType)
 		}

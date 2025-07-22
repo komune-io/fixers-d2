@@ -10,6 +10,7 @@ import d2.dokka.storybook.model.doc.tag.Order
 import d2.dokka.storybook.model.doc.tag.Title
 import d2.dokka.storybook.model.doc.tag.Visual
 import d2.dokka.storybook.model.doc.tag.VisualType
+import kotlin.reflect.KClass
 import org.jetbrains.dokka.DokkaConfiguration.DokkaSourceSet
 import org.jetbrains.dokka.links.DRI
 import org.jetbrains.dokka.links.sureClassNames
@@ -25,7 +26,6 @@ import org.jetbrains.dokka.model.doc.TagWrapper
 import org.jetbrains.dokka.model.orEmpty
 import org.jetbrains.dokka.model.properties.PropertyContainer
 import org.jetbrains.dokka.model.properties.WithExtraProperties
-import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")
 fun Documentable.toPageDocumentable() = PageDocumentable(
@@ -117,7 +117,9 @@ fun Documentable.directAnnotation(dri: DRI): Annotations.Annotation? = directAnn
 fun Documentable.hasDirectAnnotation(dri: DRI): Boolean = directAnnotation(dri) != null
 
 
-/* ----- After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20 ----- */
+/* -----
+	After this point, copied from org.jetbrains.dokka.base.translators.documentables.DefaultPageCreator.kt v1.9.20
+	----- */
 
 typealias GroupedTags = Map<KClass<out TagWrapper>, List<Pair<DokkaSourceSet?, TagWrapper>>>
 

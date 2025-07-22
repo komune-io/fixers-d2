@@ -6,7 +6,7 @@ abstract class CodeFileBuilder<B: Appendable> {
     protected abstract val builder: B
 
     protected open val imports: MutableList<CodeImport> = mutableListOf()
-
+    @Suppress("MagicNumber")
     open val indentSize: Int = 4
 
     open fun write(doWrite: B.() -> Unit) = builder.doWrite()

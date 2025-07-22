@@ -117,13 +117,17 @@ internal abstract class ModelDescriptionPageContentBuilder(
             val ref = property.d2DocTagExtra().firstTagOfTypeOrNull<Ref>()?.target
             if (ref != null) {
                 if (ref.callable == null) {
-                    throw IllegalArgumentException("Tag @ref of a property must link to a property (${property.dri} -> $ref")
+                    throw IllegalArgumentException(
+                        "Tag @ref of a property must link to a property (${property.dri} -> $ref"
+                    )
                 }
                 val refProperty = (documentableIndexes.documentables[ref.copy(callable = null)] as DClasslike?)
                     ?.properties
                     ?.first { it.name == ref.callable!!.name }
                 if(refProperty == null) {
-                    throw IllegalArgumentException("Property ${ref.callable!!.name} not found in ${property.name}:${property.dri}")
+                    throw IllegalArgumentException(
+                        "Property ${ref.callable!!.name} not found in ${property.name}:${property.dri}"
+                    )
                 }
                 propertyComment(refProperty)
             } else {

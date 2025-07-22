@@ -95,7 +95,8 @@ open class D2StorybookRenderer(
                 else -> Unit
             }
             else -> throw AssertionError(
-                "Page ${page.name} cannot be rendered by renderer as it is not renderer specific nor contains any content"
+                "Page ${page.name} cannot be rendered by renderer as it is not renderer specific " +
+                "nor contains any content"
             )
         }
     }

@@ -17,6 +17,7 @@ import org.jetbrains.dokka.pages.DCI
 import org.jetbrains.dokka.pages.Kind
 import org.jetbrains.dokka.pages.Style
 
+@Suppress("LongParameterList")
 fun <T: Documentable> PageContentBuilder.DocumentableContentBuilder.block(
     kind: Kind = ContentKind.Main,
     elements: Iterable<T>,
@@ -54,6 +55,7 @@ fun <T: Documentable> PageContentBuilder.DocumentableContentBuilder.block(
     }
 }
 
+@Suppress("LongParameterList")
 fun PageContentBuilder.DocumentableContentBuilder.codeBlock(
     code: String,
     language: String,

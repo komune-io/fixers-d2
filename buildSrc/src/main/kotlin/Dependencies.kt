@@ -1,10 +1,10 @@
-import io.komune.gradle.dependencies.FixersDependencies
-import io.komune.gradle.dependencies.FixersPluginVersions
-import io.komune.gradle.dependencies.FixersVersions
-import io.komune.gradle.dependencies.Scope
-import org.gradle.kotlin.dsl.embeddedKotlinVersion
+import io.komune.fixers.gradle.dependencies.FixersDependencies
+import io.komune.fixers.gradle.dependencies.FixersPluginVersions
+import io.komune.fixers.gradle.dependencies.FixersVersions
+import io.komune.fixers.gradle.dependencies.Scope
 import java.net.URI
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.embeddedKotlinVersion
 
 object PluginVersions {
 	val fixers = FixersPluginVersions.fixers
@@ -30,6 +30,6 @@ object Dependencies {
 
 fun RepositoryHandler.defaultRepo() {
 	mavenCentral()
-	maven { url = URI("https://s01.oss.sonatype.org/content/repositories/snapshots") }
+	maven { url = URI("https://central.sonatype.com/repository/maven-snapshots") }
 	maven { url = URI("https://repo.spring.io/milestone") }
 }

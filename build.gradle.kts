@@ -6,11 +6,11 @@ plugins {
 
     id("org.jetbrains.dokka") version PluginVersions.dokka
     id("com.gradle.plugin-publish") version PluginVersions.gradlePublish apply false
+    id("composite.config")
 }
 
 allprojects {
     group = "io.komune.d2"
-    version = System.getenv("VERSION") ?: "local"
     repositories {
         defaultRepo()
     }
@@ -38,5 +38,18 @@ tasks {
         addChildTask(dokkaStorybookPartial)
         addSubprojectChildTasks(dokkaStorybookPartial)
         outputDirectory.set(file("storybook/stories/d2"))
+    }
+}
+
+fixers {
+    bundle {
+        id = "d2"
+        name = "Gradle D2"
+        description = "Gradle D2 documentation generator for Komune projects"
+        url = "https://github.com/komune-io/fixers-gradle"
+    }
+    sonar {
+        organization = "komune-io"
+        projectKey = "komune-io_fixers-d2"
     }
 }

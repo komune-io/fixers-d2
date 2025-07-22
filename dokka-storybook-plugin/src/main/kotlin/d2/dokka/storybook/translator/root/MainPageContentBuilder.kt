@@ -12,6 +12,7 @@ import d2.dokka.storybook.model.render.D2ContentKind
 import d2.dokka.storybook.model.render.D2Marker
 import d2.dokka.storybook.service.DocumentablePageSelector
 import d2.dokka.storybook.translator.D2StorybookPageContentBuilder
+import java.util.SortedSet
 import org.jetbrains.dokka.base.translators.documentables.PageContentBuilder
 import org.jetbrains.dokka.links.DRI
 import org.jetbrains.dokka.links.sureClassNames
@@ -19,7 +20,6 @@ import org.jetbrains.dokka.model.DTypeAlias
 import org.jetbrains.dokka.model.Documentable
 import org.jetbrains.dokka.pages.ContentGroup
 import org.jetbrains.dokka.pages.ContentNode
-import java.util.SortedSet
 
 internal abstract class MainPageContentBuilder(
     private val contentBuilder: PageContentBuilder,
@@ -36,7 +36,10 @@ internal abstract class MainPageContentBuilder(
         }
     }
 
-    private fun contentFor(d: Documentable, block: PageContentBuilder.DocumentableContentBuilder.() -> Unit = {}): ContentGroup {
+    private fun contentFor(
+        d: Documentable, 
+        block: PageContentBuilder.DocumentableContentBuilder.() -> Unit = {}
+    ): ContentGroup {
         return contentBuilder.contentFor(d, kind = D2ContentKind.Container)  {
             block()
             if (d.isOfType(D2Type.MODEL, D2Type.AUTOMATE, D2Type.API, D2Type.SERVICE)) {

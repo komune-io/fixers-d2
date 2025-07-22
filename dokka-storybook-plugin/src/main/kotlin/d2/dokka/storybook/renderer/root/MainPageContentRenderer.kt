@@ -56,7 +56,9 @@ open class MainPageContentRenderer(
             D2ContentKind.Source -> importSources(node, pageContext)
             D2ContentKind.Children -> importExtensions(node, pageContext)
             ContentKind.Empty -> Unit
-            else -> throw IllegalArgumentException("Cannot render ContentGroup of kind [${node.dci.kind}] in a Main page")
+            else -> throw IllegalArgumentException(
+                "Cannot render ContentGroup of kind [${node.dci.kind}] in a Main page"
+            )
         }
     }
 
@@ -129,7 +131,12 @@ open class MainPageContentRenderer(
         }
     }
 
-    open fun buildImport(target: DRI, fileData: FileData, sourceSets: Set<DisplaySourceSet>, pageContext: ContentPage): CodeImport? {
+    open fun buildImport(
+        target: DRI, 
+        fileData: FileData, 
+        sourceSets: Set<DisplaySourceSet>, 
+        pageContext: ContentPage
+    ): CodeImport? {
         val fullDri = target.copy(extra = fileData.id)
         return d2LocationProvider.resolve(fullDri, sourceSets, pageContext)
             ?.let { path ->

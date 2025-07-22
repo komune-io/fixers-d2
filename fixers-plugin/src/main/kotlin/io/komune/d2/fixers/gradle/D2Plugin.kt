@@ -1,8 +1,8 @@
 package io.komune.d2.fixers.gradle
 
 import getD2
-import io.komune.fixers.gradle.config.ConfigPlugin
-import io.komune.gradle.config.fixers
+import io.komune.fixers.gradle.config.fixers
+import io.komune.fixers.gradle.plugin.config.ConfigPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies

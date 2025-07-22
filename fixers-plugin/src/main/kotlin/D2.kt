@@ -1,5 +1,5 @@
 import io.komune.d2.fixers.gradle.D2
-import io.komune.gradle.config.ConfigExtension
+import io.komune.fixers.gradle.config.ConfigExtension
 import org.gradle.api.Action
 
 fun ConfigExtension.d2(configure: Action<D2>) {

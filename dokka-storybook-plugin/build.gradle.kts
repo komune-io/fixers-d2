@@ -1,11 +1,9 @@
-import io.komune.gradle.dependencies.FixersDependencies
-
 plugins {
     `kotlin-dsl`
-    kotlin("jvm")
+    id("io.komune.fixers.gradle.kotlin.jvm")
+    id("io.komune.fixers.gradle.publishing")
 }
 
-apply(from = rootProject.file("gradle/publishing_module.gradle"))
 
 project.plugins.withId("java-gradle-plugin") { // only do it if it's actually applied
     project.configure<GradlePluginDevelopmentExtension> {
@@ -14,15 +12,15 @@ project.plugins.withId("java-gradle-plugin") { // only do it if it's actually ap
 }
 
 dependencies {
-    FixersDependencies.Jvm.Kotlin.coroutines(::implementation)
-    compileOnly("org.jetbrains.dokka:dokka-core:${PluginVersions.dokka}")
-    implementation("org.jetbrains.dokka:dokka-base:${PluginVersions.dokka}")
-    implementation("org.jetbrains.dokka:gfm-plugin:${PluginVersions.dokka}")
-    implementation(kotlin("stdlib"))
-    implementation("com.fasterxml.jackson.core:jackson-databind:${Versions.jackson}")
+    implementation(libs.kotlinx.coroutines.core)
+    compileOnly(libs.dokka.core)
+    implementation(libs.dokka.base)
+    implementation(libs.dokka.gfm.plugin)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.jackson.databind)
 
-    testImplementation(kotlin("test-junit"))
-    testImplementation("org.jetbrains.dokka:dokka-test-api:${PluginVersions.dokka}")
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.dokka.test.api)
 }
 
 tasks.withType<Jar> {
