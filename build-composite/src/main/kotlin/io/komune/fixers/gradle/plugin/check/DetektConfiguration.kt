@@ -26,7 +26,7 @@ fun Project.configureDetekt() {
         plugins.apply("io.gitlab.arturbosch.detekt")
 
         pluginManager.withPlugin("io.gitlab.arturbosch.detekt") {
-val detectXmlPath = layout.buildDirectory.file("reports/detekt/detekt.xml")
+            val detectXmlPath = layout.buildDirectory.file("reports/detekt/detekt.xml")
             val detectSarifPath = layout.buildDirectory.file("reports/detekt/detekt.sarif")
             extensions.configure(DetektExtension::class.java) {
                 val sourceDirs = file("src")
