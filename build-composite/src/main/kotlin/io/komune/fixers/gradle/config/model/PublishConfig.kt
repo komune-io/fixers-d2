@@ -22,7 +22,7 @@ enum class PkgDeployType {
     }
 
     /**
-     * Checks if the package deployment type is PUBLISH.
+     * Checks if the package deployment type is STAGE.
      */
     fun isPkgDeployTypePublish(): Boolean {
         return this == STAGE
@@ -43,31 +43,6 @@ enum class PkgDeployType {
 }
 
 /**
- * Enum representing the Maven repository type
- */
-enum class PkgMavenRepo {
-    GITHUB, MAVEN_CENTRAL, NONE;
-
-    fun isGithubMavenRepo(): Boolean {
-        return this == GITHUB
-    }
-
-    fun isNotGithubMavenRepo(): Boolean {
-        return !isGithubMavenRepo() && this != NONE
-    }
-
-    companion object {
-        fun fromString(value: String?): PkgMavenRepo {
-            return when (value?.uppercase()) {
-                "GITHUB" -> GITHUB
-                "MAVEN_CENTRAL" -> MAVEN_CENTRAL
-                else -> NONE
-            }
-        }
-    }
-}
-
-/**
  * Configuration for publishing artifacts.
  */
 open class PublishConfig(
@@ -79,7 +54,6 @@ open class PublishConfig(
                 mavenCentralUrl=${mavenCentralUrl.orNull}, 
                 mavenSnapshotsUrl=${mavenSnapshotsUrl.orNull}, 
                 pkgDeployTypes=${pkgDeployTypes.orNull}, 
-                pkgMavenRepo=${pkgMavenRepo.orNull}, 
                 pkgGithubUsername=${pkgGithubUsername.orNull}, 
                 pkgGithubToken=******, 
                 signingKey=******, 
@@ -122,45 +96,17 @@ open class PublishConfig(
     }
 
     /**
-     * Gets the Maven repository type from environment variables or project properties.
-     * @return The Maven repository type, defaulting to GITHUB if not specified.
-     */
-    val pkgMavenRepo: Property<PkgMavenRepo> = project.objects.property(PkgMavenRepo::class.java).apply {
-        convention(project.provider {
-            val repoTypeStr = project.property<String>(
-                envKey = "PKG_MAVEN_REPO",
-                projectKey = "PKG_MAVEN_REPO"
-            ).orNull
-            PkgMavenRepo.fromString(repoTypeStr)
-        })
-    }
-
-    /**
      * Checks if the package deployment type is PROMOTE.
      */
     val isPkgDeployTypePromote: Provider<Boolean> = project.provider {
-        pkgDeployTypes.get().contains(PkgDeployType.PROMOTE)
+        pkgDeployTypes.get().any { it.isPkgDeployTypePromote() }
     }
 
     /**
-     * Checks if the package deployment type is PUBLISH.
+     * Checks if the package deployment type is STAGE.
      */
     val isPkgDeployTypePublish: Provider<Boolean> = project.provider {
-        pkgDeployTypes.get().contains(PkgDeployType.STAGE)
-    }
-
-    /**
-     * Checks if the Maven repository is GitHub.
-     */
-    val isGithubMavenRepo: Provider<Boolean> = project.provider {
-        pkgMavenRepo.orNull?.isGithubMavenRepo() ?: false
-    }
-
-    /**
-     * Checks if the Maven repository is not GitHub and not NONE.
-     */
-    val isNotGithubMavenRepo: Provider<Boolean> = project.provider {
-        pkgMavenRepo.orNull?.isNotGithubMavenRepo() ?: false
+        pkgDeployTypes.get().any { it.isPkgDeployTypePublish() }
     }
 
     /**
@@ -168,7 +114,7 @@ open class PublishConfig(
      * Artifacts are published if the deployment type is PUBLISH or if the repository is GitHub.
      */
     val isStage: Provider<Boolean> = project.provider {
-        isPkgDeployTypePublish.orNull ?: false || isGithubMavenRepo.orNull ?: false
+        isPkgDeployTypePublish.orNull ?: false
     }
 
     /**
@@ -176,7 +122,7 @@ open class PublishConfig(
      * Artifacts are promoted if the deployment type is PROMOTE or if the repository is not GitHub.
      */
     val isPromote: Provider<Boolean> = project.provider {
-        isPkgDeployTypePromote.orNull ?: false || isNotGithubMavenRepo.orNull ?: false
+        isPkgDeployTypePromote.orNull ?: false
     }
 
     /**
@@ -235,6 +181,20 @@ open class PublishConfig(
     val githubPackagesUrl: Property<String> = project.objects.property(String::class.java).apply {
         convention(project.provider { "https://maven.pkg.github.com/komune-io/${project.rootProject.name}" })
     }
+    
+    /**
+     * Searches for the version in the VERSION file or falls back to the project's version.
+     *
+     * @return A provider that resolves to the version string
+     */
+    val version: Provider<String> = project.provider {
+        val versionFile = project.rootProject.file("VERSION")
+        if (versionFile.exists()) {
+            versionFile.readText().trim()
+        } else {
+            project.version.toString()
+        }
+    }
 
     /**
      * Gets the staging repository path.
@@ -256,28 +216,15 @@ open class PublishConfig(
      * @return This PublishConfig after merging
      */
     fun mergeFrom(source: PublishConfig): PublishConfig {
-        // URL properties
         mavenCentralUrl.mergeIfNotPresent(source.mavenCentralUrl)
         mavenSnapshotsUrl.mergeIfNotPresent(source.mavenSnapshotsUrl)
-
-        // Package deployment properties
         pkgDeployTypes.mergeIfNotPresent(source.pkgDeployTypes)
-        pkgMavenRepo.mergeIfNotPresent(source.pkgMavenRepo)
-
-        // GitHub properties
         pkgGithubUsername.mergeIfNotPresent(source.pkgGithubUsername)
         pkgGithubToken.mergeIfNotPresent(source.pkgGithubToken)
-
-        // Signing properties
         signingKey.mergeIfNotPresent(source.signingKey)
         signingPassword.mergeIfNotPresent(source.signingPassword)
-
-        // Gradle plugin properties
         gradlePlugin.mergeIfNotPresent(source.gradlePlugin)
-
-        // Staging directory
         stagingDirectory.mergeIfNotPresent(source.stagingDirectory)
-
         return this
     }
 }

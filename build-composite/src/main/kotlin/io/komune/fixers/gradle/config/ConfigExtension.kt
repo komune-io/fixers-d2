@@ -12,25 +12,24 @@ import io.komune.fixers.gradle.config.model.sonarCloud
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
-import org.gradle.api.provider.Property
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
 /**
- * Retrieves the [fixers][io.komune.fixers.gradle.fixers] extension.
+ * Retrieves the [fixers][io.komune.fixers.gradle.config.ConfigExtension.NAME] extension.
  */
 val ExtensionContainer.fixers: ConfigExtension?
 	get() = findByName(ConfigExtension.NAME) as? ConfigExtension
 
 /**
- * Configures the [fixers][io.komune.fixers.gradle.fixers] extension.
+ * Configures the [fixers][io.komune.fixers.gradle.config.ConfigExtension.NAME] extension.
  */
 fun Project.fixers(configure: Action<ConfigExtension>): Unit =
 	this.rootProject.extensions.configure(ConfigExtension.NAME, configure)
 
 /**
- * Configures the [fixers][io.komune.fixers.gradle.fixers] extension if exists.
+ * Configures the [fixers][io.komune.fixers.gradle.config.ConfigExtension.NAME] extension if exists.
  */
 fun ExtensionContainer.fixersIfExists(configure: Action<ConfigExtension>) {
 	if (fixers != null) {
@@ -54,6 +53,8 @@ abstract class ConfigExtension(
 	companion object {
 		const val NAME: String = "fixers"
 	}
+
+	var properties: MutableMap<String, Any> = mutableMapOf()
 
 	var bundle: Bundle = Bundle(
 		project = project,

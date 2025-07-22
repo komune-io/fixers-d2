@@ -11,14 +11,13 @@ repositories {
 }
 
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginVersions.kotlin}")
-	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${PluginVersions.kotlin}")
-
-	implementation("org.jetbrains.dokka:dokka-gradle-plugin:${PluginVersions.dokka}")
+	implementation(libs.kotlin.gradle.plugin)
+	implementation(libs.kotlin.compiler.embeddable)
+	implementation(libs.dokka.gradle.plugin)
 
 	implementation(project(":dokka-storybook-plugin"))
-	implementation("io.komune.fixers.gradle:config:${PluginVersions.fixers}")
-	implementation("io.komune.fixers.gradle:plugin:${PluginVersions.fixers}")
+	implementation(libs.fixers.gradle.config)
+	implementation(libs.fixers.gradle.plugin)
 }
 
 tasks.withType<Jar> {
