@@ -16,8 +16,8 @@ dependencies {
 	implementation(libs.dokka.gradle.plugin)
 
 	implementation(project(":dokka-storybook-plugin"))
-	implementation(libs.fixers.gradle.config)
-	implementation(libs.fixers.gradle.plugin)
+	implementation("io.komune.fixers.gradle:config:${PluginVersions.fixers}")
+	implementation("io.komune.fixers.gradle:plugin:${PluginVersions.fixers}")
 }
 
 tasks.withType<Jar> {

@@ -6,7 +6,7 @@ jreleaser = "1.19.0"
 mockito = "5.3.1"
 mockito-kotlin = "5.0.0"
 commons-lang3 = "3.18.0"
-dokka = "1.9.10"
+dokka = "1.9.20"
 kotlin = "1.9.10"
 jackson = "2.16.1"
 coroutines = "1.7.3"
@@ -34,5 +34,3 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-fixers-gradle-config = { module = "io.komune.fixers.gradle:config", version = "0.24.0-SNAPSHOT" }
-fixers-gradle-plugin = { module = "io.komune.fixers.gradle:plugin", version = "0.24.0-SNAPSHOT" }
