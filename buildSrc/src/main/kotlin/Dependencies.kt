@@ -30,6 +30,7 @@ object Dependencies {
 
 fun RepositoryHandler.defaultRepo() {
 	mavenCentral()
+	mavenLocal()
 	maven { url = URI("https://central.sonatype.com/repository/maven-snapshots") }
 	maven { url = URI("https://repo.spring.io/milestone") }
 }
