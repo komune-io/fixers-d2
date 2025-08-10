@@ -12,11 +12,11 @@ build:
 test:
 	./gradlew test
 
-publish:
-	VERSION=$(VERSION) PKG_MAVEN_REPO=github ./gradlew publish --info
+stage:
+	VERSION=$(VERSION) PKG_MAVEN_REPO=github ./gradlew stage
 
 promote:
-	VERSION=$(VERSION) PKG_MAVEN_REPO=sonatype_oss ./gradlew publish
+	VERSION=$(VERSION) PKG_MAVEN_REPO=sonatype_oss ./gradlew promote
 
 .PHONY: version
 version:
