@@ -1,11 +1,12 @@
 package d2.dokka.storybook.util
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.core.json.JsonReadFeature
+import tools.jackson.databind.json.JsonMapper
 
 object JsonUtils {
-    private val mapper = ObjectMapper()
-        .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
+    private val mapper = JsonMapper.builder()
+        .enable(JsonReadFeature.ALLOW_UNQUOTED_PROPERTY_NAMES)
+        .build()
 
     fun toPrettyJson(json: String): String {
         val parsed = mapper.readValue(json, Any::class.java)

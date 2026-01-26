@@ -11,10 +11,12 @@ class JsonUtilsTest {
         val input = """{"name":"John","age":30}"""
         val result = JsonUtils.toPrettyJson(input)
 
-        val expected = """{
-          "name" : "John",
-          "age" : 30
-        }"""
+        val expected = """
+            {
+              "name" : "John",
+              "age" : 30
+            }
+        """.trimIndent()
         assertEquals(expected, result)
     }
 
@@ -23,14 +25,16 @@ class JsonUtilsTest {
         val input = """{"person":{"name":"John","address":{"city":"Paris"}}}"""
         val result = JsonUtils.toPrettyJson(input)
 
-        val expected = """{
-          "person" : {
-            "name" : "John",
-            "address" : {
-              "city" : "Paris"
+        val expected = """
+            {
+              "person" : {
+                "name" : "John",
+                "address" : {
+                  "city" : "Paris"
+                }
+              }
             }
-          }
-        }"""
+        """.trimIndent()
         assertEquals(expected, result)
     }
 
@@ -39,9 +43,11 @@ class JsonUtilsTest {
         val input = """{"items":[1,2,3]}"""
         val result = JsonUtils.toPrettyJson(input)
 
-        val expected = """{
-  "items" : [ 1, 2, 3 ]
-}"""
+        val expected = """
+            {
+              "items" : [ 1, 2, 3 ]
+            }
+        """.trimIndent()
         assertEquals(expected, result)
     }
 
@@ -50,10 +56,12 @@ class JsonUtilsTest {
         val input = """{name:"John",age:30}"""
         val result = JsonUtils.toPrettyJson(input)
 
-        val expected = """{
-          "name" : "John",
-          "age" : 30
-        }"""
+        val expected = """
+            {
+              "name" : "John",
+              "age" : 30
+            }
+        """.trimIndent()
         assertEquals(expected, result)
     }
 

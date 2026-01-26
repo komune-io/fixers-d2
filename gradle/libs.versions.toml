@@ -1,36 +1,43 @@
 [versions]
-detekt = "1.23.6"
-sonarQube = "5.1.0.4882"
-npmPublish = "3.4.2"
-jreleaser = "1.19.0"
-mockito = "5.3.1"
-mockito-kotlin = "5.0.0"
-commons-lang3 = "3.18.0"
+detekt = "1.23.8"
+sonarQube = "7.1.0.6387"
+npmPublish = "3.5.3"
+jreleaser = "1.21.0"
+mockito = "5.20.0"
+mockito-kotlin = "6.1.0"
 dokka = "1.9.20"
-kotlin = "1.9.10"
-jackson = "2.16.1"
-coroutines = "1.7.3"
+kotlin = "2.2.21"
+jackson = "3.0.3"
+coroutines = "1.10.2"
+gradlePublish = "1.2.0"
 
 [libraries]
 npmPublishGradlePlugin = { module = "dev.petuska.npm.publish:dev.petuska.npm.publish.gradle.plugin", version.ref = "npmPublish" }
 detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 sonarqubeGradlePlugin = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarQube" }
 jreleaserGradlePlugin = { module = "org.jreleaser:jreleaser-gradle-plugin", version.ref = "jreleaser" }
-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 dokka-core = { module = "org.jetbrains.dokka:dokka-core", version.ref = "dokka" }
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 dokka-gfm-plugin = { module = "org.jetbrains.dokka:gfm-plugin", version.ref = "dokka" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 dokka-test-api = { module = "org.jetbrains.dokka:dokka-test-api", version.ref = "dokka" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version = "5.9.2" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version = "5.9.2" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "1.9.2" }
 assertj-core-specific = { module = "org.assertj:assertj-core", version = "3.24.2" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+
+[plugins]
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+gradlePublish = { id = "com.gradle.plugin-publish", version.ref = "gradlePublish" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }

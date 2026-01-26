@@ -12,7 +12,6 @@ repositories {
 
 dependencies {
 	implementation(libs.kotlin.gradle.plugin)
-	implementation(libs.kotlin.compiler.embeddable)
 	implementation(libs.dokka.gradle.plugin)
 
 	implementation(project(":dokka-storybook-plugin"))
@@ -40,13 +39,5 @@ gradlePlugin {
 			description = "Ease the configuration of d2 in order to generate documentation for storybook."
 			tags = listOf("Komune", "Fixers", "kotlin", "dokka", "d2")
 		}
-	}
-}
-
-fixers {
-	publish {
-		gradlePlugin.set(listOf(
-			"io.komune.fixers.gradle.d2PluginMarkerMaven",
-		))
 	}
 }

@@ -31,3 +31,7 @@ tasks.withType<Jar> {
         )
     }
 }
+
+tasks.test {
+    useJUnit()
+}
