@@ -1,7 +1,6 @@
 package d2.dokka.storybook.renderer.visual
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.ObjectMapper
+import d2.dokka.storybook.util.JsonUtils
 import org.jetbrains.dokka.pages.ContentGroup
 import org.jetbrains.dokka.pages.ContentPage
 import org.jetbrains.dokka.pages.ContentStyle
@@ -35,15 +34,8 @@ class VisualJsonPageContentRenderer: VisualPageContentRenderer() {
     }
 
     override fun StringBuilder.beautify() {
-        val prettyJson = toPrettyJson()
+        val prettyJson = JsonUtils.toPrettyJson(this.toString())
         clear()
         append(prettyJson)
-    }
-
-    private fun StringBuilder.toPrettyJson(): String {
-        val mapper = ObjectMapper()
-            .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
-        val json = mapper.readValue(this.toString(), Any::class.java)
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)
     }
 }
