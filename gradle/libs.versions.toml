@@ -1,21 +1,11 @@
 [versions]
-detekt = "1.23.8"
-sonarQube = "7.1.0.6387"
-npmPublish = "3.5.3"
-jreleaser = "1.21.0"
-mockito = "5.20.0"
-mockito-kotlin = "6.1.0"
 dokka = "1.9.20"
-kotlin = "2.2.21"
+kotlin = "2.2.20"
 jackson = "3.0.3"
 coroutines = "1.10.2"
 gradlePublish = "1.2.0"
 
 [libraries]
-npmPublishGradlePlugin = { module = "dev.petuska.npm.publish:dev.petuska.npm.publish.gradle.plugin", version.ref = "npmPublish" }
-detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-sonarqubeGradlePlugin = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarQube" }
-jreleaserGradlePlugin = { module = "org.jreleaser:jreleaser-gradle-plugin", version.ref = "jreleaser" }
 dokka-core = { module = "org.jetbrains.dokka:dokka-core", version.ref = "dokka" }
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 dokka-gfm-plugin = { module = "org.jetbrains.dokka:gfm-plugin", version.ref = "dokka" }
@@ -23,14 +13,7 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 dokka-test-api = { module = "org.jetbrains.dokka:dokka-test-api", version.ref = "dokka" }
-kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-
-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version = "5.9.2" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version = "5.9.2" }
-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "1.9.2" }
-assertj-core-specific = { module = "org.assertj:assertj-core", version = "3.24.2" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 

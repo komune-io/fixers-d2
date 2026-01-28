@@ -1,6 +1,6 @@
 package d2.dokka.storybook.util
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
