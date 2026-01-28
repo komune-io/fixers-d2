@@ -1,18 +1,13 @@
-VERSION = $(shell cat VERSION)
+VERSION = $(shell cat ../../VERSION)
 
 .PHONY: lint build test publish promote
 
-## New
 lint:
 	@make -f make_libs.mk lint
-	@#make -f make_docs.mk lint
-#
+
 build:
 	@make -f make_libs.mk build
-	@make -f docs.mk build
-
-test-pre:
-	@make -f make_libs.mk test-pre
+	@make -f make_docs.mk build
 
 test:
 	@make -f make_libs.mk test
