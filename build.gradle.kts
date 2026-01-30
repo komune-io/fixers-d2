@@ -1,12 +1,13 @@
 plugins {
-    kotlin("plugin.jpa") version PluginVersions.kotlinDsl apply false
-    kotlin("kapt") version PluginVersions.kotlinDsl apply false
-    kotlin("jvm") version PluginVersions.kotlinDsl apply false
-    kotlin("multiplatform") version PluginVersions.kotlinDsl apply false
+    alias(libs.plugins.kotlin.jpa) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
 
-    id("org.jetbrains.dokka") version PluginVersions.dokka
-    id("com.gradle.plugin-publish") version PluginVersions.gradlePublish apply false
-    id("composite.config")
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.gradlePublish) apply false
+    id("io.komune.fixers.gradle.config")
+    id("io.komune.fixers.gradle.check")
 }
 
 allprojects {

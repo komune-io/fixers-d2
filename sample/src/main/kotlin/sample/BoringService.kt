@@ -28,7 +28,7 @@ class BoringService {
     /**
      * Doesn't even bother to do anything
      */
-    fun procrastinate(query: String) { TODO() }
+    fun procrastinate(@Suppress("UnusedParameter") query: String) { TODO() }
 
     /**
      * Would consume stuff if it weren't lazy

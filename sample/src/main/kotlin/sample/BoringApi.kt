@@ -26,7 +26,7 @@ class BoringApi {
      * Doesn't even bother to do anything
      * @d2 command
      */
-    fun procrastinate(query: String) { TODO() }
+    fun procrastinate(@Suppress("UnusedParameter") query: String) { TODO() }
 
     /**
      * Would consume stuff if it weren't lazy

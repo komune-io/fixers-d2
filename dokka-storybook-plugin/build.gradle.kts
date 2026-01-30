@@ -19,15 +19,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.jackson.databind)
 
-    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.dokka.test.api)
-}
-
-tasks.withType<Jar> {
-    manifest {
-        attributes(
-            "Implementation-Title" to project.name,
-            "Implementation-Version" to project.version
-        )
-    }
 }

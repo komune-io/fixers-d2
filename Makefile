@@ -2,26 +2,21 @@ VERSION = $(shell cat VERSION)
 
 .PHONY: lint build test publish promote
 
-## New
 lint:
-	@make -f make_libs.mk lint
-	@#make -f make_docs.mk lint
-#
-build:
-	@make -f make_libs.mk build
-	@make -f docs.mk build
+	@make -f infra/make/libs.mk lint
 
-test-pre:
-	@make -f make_libs.mk test-pre
+build:
+	@make -f infra/make/libs.mk build
+	@make -f infra/make/docs.mk build
 
 test:
-	@make -f make_libs.mk test
-	@make -f make_docs.mk test
+	@make -f infra/make/libs.mk test
+	@make -f infra/make/docs.mk test
 
 publish:
-	@make -f make_libs.mk publish
-	@make -f make_docs.mk publish
+	@make -f infra/make/libs.mk publish
+	@make -f infra/make/docs.mk publish
 
 promote:
-	@make -f make_libs.mk promote
-	@make -f make_docs.mk promote
+	@make -f infra/make/libs.mk promote
+	@make -f infra/make/docs.mk promote
