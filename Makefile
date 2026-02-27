@@ -1,6 +1,6 @@
 VERSION = $(shell cat VERSION)
 
-.PHONY: clean lint build test publish promote
+.PHONY: clean lint build test stage promote
 
 clean:
 	@make -f infra/make/libs.mk clean
@@ -16,10 +16,8 @@ test:
 	@make -f infra/make/libs.mk test
 	@make -f infra/make/docs.mk test
 
-publish:
-	@make -f infra/make/libs.mk publish
-	@make -f infra/make/docs.mk publish
+stage:
+	@make -f infra/make/libs.mk stage
 
 promote:
 	@make -f infra/make/libs.mk promote
-	@make -f infra/make/docs.mk promote
