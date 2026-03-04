@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.gradlePublish) apply false
     id("io.komune.fixers.gradle.config")
     id("io.komune.fixers.gradle.check")
+    id("io.komune.fixers.gradle.publishing")
 }
 
 allprojects {
