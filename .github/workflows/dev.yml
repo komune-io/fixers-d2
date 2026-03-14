@@ -10,8 +10,6 @@ on:
     branches:
       - main
       - 'release/*'
-    tags:
-      - '*'
 
 jobs:
   libs:
@@ -21,7 +19,6 @@ jobs:
       packages: write
     with:
       make-file: 'infra/make/libs.mk'
-      on-tag: 'promote'
     secrets:
       GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
       GPG_SIGNING_PASSWORD: ${{ secrets.GPG_SIGNING_PASSWORD }}
@@ -38,7 +35,6 @@ jobs:
       pages: write
       id-token: write
     with:
-      on-tag: 'stage promote'
       make-file: 'infra/make/docs.mk'
       with-chromatic: false
       base-dir: "storybook"
