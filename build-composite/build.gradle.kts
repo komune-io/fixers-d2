@@ -10,7 +10,7 @@ repositories {
     gradlePluginPortal()
 }
 
-val fixersVersion = "0.30.0-SNAPSHOT"
+val fixersVersion = "0.29.1"
 
 dependencies {
     implementation(kotlin("gradle-plugin", embeddedKotlinVersion))
