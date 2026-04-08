@@ -1,7 +1,7 @@
 
 pluginManagement {
     repositories {
-        if(System.getenv("MAVEN_LOCAL_USE") == "true") {
+        if(System.getenv("FIXERS_REPOSITORIES_MAVEN_LOCAL") == "true" || System.getenv("MAVEN_LOCAL_USE") == "true") {
             mavenLocal()
         }
         gradlePluginPortal()

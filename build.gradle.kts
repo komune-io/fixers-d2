@@ -54,4 +54,7 @@ fixers {
         organization = "komune-io"
         projectKey = "komune-io_fixers-d2"
     }
+    repositories {
+        sonatypeSnapshots = true
+    }
 }
