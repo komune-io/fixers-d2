@@ -1,12 +1,22 @@
 
 pluginManagement {
     repositories {
-        if(System.getenv("FIXERS_REPOSITORIES_MAVEN_LOCAL") == "true" || System.getenv("MAVEN_LOCAL_USE") == "true") {
+        if(System.getenv("FIXERS_REPOSITORIES_MAVEN_LOCAL") == "true") {
             mavenLocal()
         }
         gradlePluginPortal()
         mavenCentral()
         maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots") }
+        if(System.getenv("FIXERS_REPOSITORIES_MAVEN_LOCAL") == "true") {
+            mavenLocal()
+        }
     }
 }
 
