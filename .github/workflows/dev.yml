@@ -33,7 +33,11 @@ jobs:
       base-dir: "storybook"
       storybook-dir: "storybook"
       storybook-static-dir: "storybook-static"
-    secrets: inherit
+    secrets:
+      DOCKER_STAGE_USERNAME: ${{ github.actor }}
+      DOCKER_STAGE_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      DOCKER_PROMOTE_USERNAME: ${{ secrets.DOCKER_IO_USERNAME }}
+      DOCKER_PROMOTE_PASSWORD: ${{ secrets.DOCKER_IO_PASSWORD }}
 
   sec:
     needs: libs
