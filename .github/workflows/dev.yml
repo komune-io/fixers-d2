@@ -41,8 +41,7 @@ jobs:
       storybook-dir: "storybook"
       storybook-static-dir: "storybook-static"
     secrets:
-      FIXERS_PUBLISH_NPM_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CHROMATIC_PROJECT_TOKEN: ${{ secrets.FIXERS_CHROMATIC_PROJECT_TOKEN }}
+      FIXERS_CHROMATIC_PROJECT_TOKEN: ${{ secrets.FIXERS_CHROMATIC_PROJECT_TOKEN }}
       DOCKER_STAGE_USERNAME: ${{ github.actor }}
       DOCKER_STAGE_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       DOCKER_PROMOTE_USERNAME: ${{ secrets.FIXERS_DOCKER_HUB_USERNAME }}
