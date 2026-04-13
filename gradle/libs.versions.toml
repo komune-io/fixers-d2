@@ -3,7 +3,7 @@ dokka = "1.9.20"
 kotlin = "2.2.20"
 jackson = "3.0.3"
 coroutines = "1.10.2"
-gradlePublish = "1.2.0"
+gradlePublish = "2.1.1"
 
 [libraries]
 dokka-core = { module = "org.jetbrains.dokka:dokka-core", version.ref = "dokka" }
